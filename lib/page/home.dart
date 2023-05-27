@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                                         'Genre:',
                                         style: TextStyle(fontSize: 15),
                                       ),
-                                      Text(game?.getGenre() ?? ''),
+                                      // Text(game?.getGenre() ?? ''),
                                     ],
                                   ),
                                 ),

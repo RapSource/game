@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:readmore/readmore.dart';
 import '../model/data/game.dart';
 import '../model/data/game_detail.dart';
 import '../model/data/screenshot.dart';
@@ -65,58 +66,86 @@ class DetailPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 5),
-                          Text(
-                            gameDetail?.getGenre().toString() ?? ''
-                          ),
+                          Text(gameDetail?.getGenre().toString() ?? ''),
                           SizedBox(height: 5),
                           Container(
-                            height: 150,
+                            height: 200,
+                            color: Colors.amber,
                             child: FutureBuilder(
                               future: ResultScreenShot.getScreenShot(id),
                               builder: (context, snapshot) {
-                                return ListView.builder(
-                                  shrinkWrap: true,
+                                return SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data?.results.length,
-                                  itemBuilder: (context, index) {
-                                    var ss = snapshot.data?.results[index];
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: 200,
-                                        height: 100,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.all(8.0),
+                                        // color: Colors.blue,
+                                        height: 180,
+                                        width: 270,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                          color:
-                                              Color.fromARGB(255, 230, 228, 228),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(10),
                                           child: Image.network(
-                                            ss?.image ?? 
                                             'https://www.shutterstock.com/image-vector/vector-illustration-sample-red-grunge-600w-2065712915.jpg',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
                                       ),
-                                    );
-                                  },
-                              );
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            snapshot.data?.results.length,
+                                        itemBuilder: (context, index) {
+                                          var ss =
+                                              snapshot.data?.results[index];
+                                          return Container(
+                                            margin: const EdgeInsets.all(8.0),
+                                            height: 170,
+                                            width: 270,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.network(
+                                                ss?.image ??
+                                                    'https://www.shutterstock.com/image-vector/vector-illustration-sample-red-grunge-600w-2065712915.jpg',
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
                               },
                             ),
                           ),
                           SizedBox(height: 5),
                           Container(
                             padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  gameDetail?.descriptionRaw ?? '',
-                                  maxLines: 10,
-                                  // textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(fontSize: 16.0),
-                                ),
-                              ],
+                            child: ReadMoreText(
+                              gameDetail?.descriptionRaw ?? '',
+                              trimLines: 10,
+                              textAlign: TextAlign.justify,
+                              trimMode: TrimMode.Line,
+                              trimCollapsedText: 'Read More..',
+                              trimExpandedText: 'Read Less..',
+                              lessStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueAccent),
+                              moreStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blueAccent),
+                              style: GoogleFonts.poppins(fontSize: 16.0),
                             ),
                           ),
                         ],

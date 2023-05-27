@@ -15,30 +15,29 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Center(
-        child: Row(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/mobile-game.png',
-              fit: BoxFit.contain,
-              height: 35,
-            ),
-            Container(
-                margin: const EdgeInsets.only(top: 15.0),
-                child: Row(
-                  children: [
-                    Text('Game',
-                        style: GoogleFonts.poppins(
-                            color: Colors.grey, fontWeight: FontWeight.bold)),
-                    Text('KU',
-                        style: GoogleFonts.poppins(
-                            color: Colors.yellow, fontWeight: FontWeight.bold))
-                  ],
-                ))
-          ],
-        ),
+      title: Row(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/mobile-game.png',
+            fit: BoxFit.contain,
+            height: 35,
+          ),
+          Container(
+              margin: const EdgeInsets.only(top: 15.0),
+              child: Row(
+                children: [
+                  Text('Game',
+                      style: GoogleFonts.poppins(
+                          color: Colors.grey, fontWeight: FontWeight.bold)),
+                  Text('KU',
+                      style: GoogleFonts.poppins(
+                          color: Colors.yellow, fontWeight: FontWeight.bold))
+                ],
+              ))
+        ],
       ),
+      centerTitle: true,
       actions: <Widget>[
         Padding(
             padding: const EdgeInsets.all(8.0),
