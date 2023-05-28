@@ -4,6 +4,7 @@ import 'package:readmore/readmore.dart';
 import '../model/data/game.dart';
 import '../model/data/game_detail.dart';
 import '../model/data/screenshot.dart';
+import '../model/data/video_thumbnail.dart';
 import '../utils/custom_appbar.dart';
 
 class DetailPage extends StatelessWidget {
@@ -78,22 +79,27 @@ class DetailPage extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
-                                      Container(
-                                        margin: const EdgeInsets.all(8.0),
-                                        // color: Colors.blue,
-                                        height: 180,
-                                        width: 270,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.network(
-                                            'https://www.shutterstock.com/image-vector/vector-illustration-sample-red-grunge-600w-2065712915.jpg',
-                                            fit: BoxFit.cover,
+                                      FutureBuilder(
+                                        future: ThumbnailVideo.getThumbnailVideo(id),
+                                        builder: (context, snapshot) {
+                                          return Container(
+                                          margin: const EdgeInsets.all(8.0),
+                                          // color: Colors.blue,
+                                          height: 180,
+                                          width: 270,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
-                                        ),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: Image.network(
+                                              'https://www.shutterstock.com/image-vector/vector-illustration-sample-red-grunge-600w-2065712915.jpg',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        );
+                                        }
                                       ),
                                       ListView.builder(
                                         shrinkWrap: true,
