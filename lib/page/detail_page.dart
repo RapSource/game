@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
+import 'package:video_player/video_player.dart';
 import '../model/data/game.dart';
 import '../model/data/game_detail.dart';
 import '../model/data/screenshot.dart';
 import '../model/data/video_thumbnail.dart';
 import '../utils/custom_appbar.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   int? id;
 
   DetailPage({required this.id});
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  // @override
+  // void dispose() {
+  //   _controller.dispose();
+
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +39,7 @@ class DetailPage extends StatelessWidget {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(60), child: CustomAppBar()),
         body: FutureBuilder(
-            future: GameDetail.getGameDetail(id),
+            future: GameDetail.getGameDetail(widget.id),
             builder: (context, snapshot) {
               var gameDetail = snapshot.data;
               return SingleChildScrollView(
@@ -73,34 +94,39 @@ class DetailPage extends StatelessWidget {
                             height: 200,
                             color: Colors.amber,
                             child: FutureBuilder(
-                              future: ResultScreenShot.getScreenShot(id),
+                              future: ResultScreenShot.getScreenShot(widget.id),
                               builder: (context, snapshot) {
                                 return SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
                                     children: [
                                       FutureBuilder(
-                                        future: ThumbnailVideo.getThumbnailVideo(id),
-                                        builder: (context, snapshot) {
-                                          return Container(
-                                          margin: const EdgeInsets.all(8.0),
-                                          // color: Colors.blue,
-                                          height: 180,
-                                          width: 270,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
-                                            child: Image.network(
-                                              'https://www.shutterstock.com/image-vector/vector-illustration-sample-red-grunge-600w-2065712915.jpg',
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        );
-                                        }
-                                      ),
+                                          future:
+                                              ThumbnailVideo.getThumbnailVideo(
+                                                  widget.id),
+                                          builder: (context, snapshot) {
+                                            var video = snapshot.data;
+                                            // print(' ${video} ini Video');
+                                            _controller =
+                                                VideoPlayerController.network(
+                                              video?.getPreview() ?? '',
+                                              videoPlayerOptions:
+                                                  VideoPlayerOptions(
+                                                      mixWithOthers: true),
+                                            );
+                                            return Container(
+                                              margin: const EdgeInsets.all(8.0),
+                                              // color: Colors.blue,
+                                              height: 180,
+                                              width: 270,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: VideoPlayer(_controller)
+                                            );
+                                          }),
+                                      FloatingActionButton(onPressed: () {}),
                                       ListView.builder(
                                         shrinkWrap: true,
                                         scrollDirection: Axis.horizontal,

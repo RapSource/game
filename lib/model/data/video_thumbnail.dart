@@ -40,9 +40,18 @@ class ThumbnailVideo {
 
     static Future<ThumbnailVideo> getThumbnailVideo(id) async {
       var apiResult = await http.get(Uri.parse('https://api.rawg.io/api/games/${id}/movies?key=05e574a9d3fb4906b0b832baf05b086d'));
+      print('$apiResult ini adalah video');
       var jsonObject = json.decode(apiResult.body);
 
       return ThumbnailVideo.fromJson(jsonObject);
+    }
+
+    String getPreview() {
+      var preview = "";
+      results.forEach((element) {
+        preview += element.preview;
+      });
+      return preview;
     }
 }
 
