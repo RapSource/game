@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/utils/custom_appbar.dart';
+import 'package:gameku/widgets/custom_appbar.dart';
 import '../model/data/game.dart';
-import 'package:gameku/page/detail_page.dart';
+import 'package:gameku/ui/detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/utils/splash_page.dart';
+import 'package:gameku/widgets/splash_page.dart';
 
 void main() => runApp(const MyApp());
 
