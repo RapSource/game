@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/page/category.dart';
-import 'package:gameku/page/home.dart';
+import '../ui/category.dart';
+import '../ui/home.dart';
+
 
 class BottomTapBar extends StatefulWidget {
   const BottomTapBar({super.key});

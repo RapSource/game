@@ -6,7 +6,7 @@ import '../model/data/game.dart';
 import '../model/data/game_detail.dart';
 import '../model/data/screenshot.dart';
 import '../model/data/video_thumbnail.dart';
-import '../utils/custom_appbar.dart';
+import '../widgets/custom_appbar.dart';
 
 class DetailPage extends StatefulWidget {
   int? id;
