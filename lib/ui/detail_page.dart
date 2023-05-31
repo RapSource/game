@@ -95,7 +95,7 @@ class _DetailPageState extends State<DetailPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 5),
-                          Text(gameDetail?.getGenre().toString() ?? ''),
+                          Text(gameDetail?.getGenre().toString() ?? '', style: GoogleFonts.roboto(fontSize: 16.0)),
                           SizedBox(height: 5),
                           Container(
                             height: 200,
