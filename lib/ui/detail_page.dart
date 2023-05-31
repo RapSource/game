@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
-import '../model/data/game.dart';
 import '../model/data/game_detail.dart';
 import '../model/data/screenshot.dart';
 import '../model/data/video_thumbnail.dart';
 import '../widgets/custom_appbar.dart';
+import '../widgets/favorite.dart';
 
 class DetailPage extends StatefulWidget {
   int? id;
@@ -77,7 +77,7 @@ class _DetailPageState extends State<DetailPage> {
                                     color: Colors.white,
                                   )),
                             ),
-                            // const LoveIcon(),
+                            const LoveIcon(),
                           ],
                         ),
                       ))

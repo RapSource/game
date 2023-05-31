@@ -23,6 +23,7 @@ class _BottomTapBarState extends State<BottomTapBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
