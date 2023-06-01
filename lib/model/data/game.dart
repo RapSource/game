@@ -277,13 +277,13 @@ class Result {
         "short_screenshots": List<dynamic>.from(shortScreenshots.map((x) => x.toJson())),
     };
 
-    String getGenre() {
-      var genre = "";
-      genres.forEach((element) {
-        genre += element.name;
-      });
-      return genre;
-    }
+    // String getGenre() {
+    //   var genre = "";
+    //   genres.forEach((element) {
+    //     genre += element.name;
+    //   });
+    //   return genre;
+    // }
 
     String getScreensShot() {
       var ss = "";
@@ -384,6 +384,13 @@ class Genre {
         "games_count": gamesCount,
         "image_background": imageBackground,
     };
+
+  static Future<Genre> getGenres() async {
+      var apiResult = await http.get(Uri.parse('https://api.rawg.io/api/genres?key=05e574a9d3fb4906b0b832baf05b086d'));
+      var jsonObject = json.decode(apiResult.body);
+
+      return Genre.fromJson(jsonObject);
+    }
 }
 
 class ParentPlatform {

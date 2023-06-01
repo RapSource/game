@@ -3,6 +3,8 @@ import 'package:gameku/widgets/custom_appbar.dart';
 import '../model/data/game.dart';
 import 'package:gameku/ui/detail_page.dart';
 
+import '../model/data/genres.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -85,7 +87,15 @@ class _HomePageState extends State<HomePage> {
                                         'Genre:',
                                         style: TextStyle(fontSize: 15),
                                       ),
-                                      // Text(game?.getGenre() ?? ''),
+                                      FutureBuilder(
+                                        future: GenresDetail.getGenres(),
+                                        builder: (context, snapshot) {
+                                          var genres = snapshot.data?.results[index];
+                                          return Text(
+                                            genres?.name ?? ''
+                                          );
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ),
