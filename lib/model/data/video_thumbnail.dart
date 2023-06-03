@@ -38,13 +38,6 @@ class ThumbnailVideo {
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
     };
 
-    static Future<ThumbnailVideo> getThumbnailVideo(id) async {
-      var apiResult = await http.get(Uri.parse('https://api.rawg.io/api/games/${id}/movies?key=05e574a9d3fb4906b0b832baf05b086d'));
-      var jsonObject = json.decode(apiResult.body);
-
-      return ThumbnailVideo.fromJson(jsonObject);
-    }
-
     // String getVideo() {
     //   var video = "";
     //   results.forEach((element) {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gameku/model/api/api_service.dart';
 import 'package:gameku/widgets/custom_appbar.dart';
-import '../model/data/game.dart';
 import 'package:gameku/ui/detail_page.dart';
 
+import '../model/data/game_result.dart';
 import '../model/data/genres.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,13 +14,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Future<GameResult> _gameResult;
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _gameResult = ApiService().getGameResult();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60), child: CustomAppBar()),
       body: FutureBuilder(
-          future: Game.getGame(),
+          future: _gameResult,
           builder: (context, snapshot) {
             return ListView.builder(
               itemCount: snapshot.data?.results.length,

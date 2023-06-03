@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+import '../widgets/custom_appbar.dart';
 import 'package:readmore/readmore.dart';
+import '../widgets/favorite.dart';
 import 'package:video_player/video_player.dart';
+
+import '../model/api/api_service.dart';
 import '../model/data/game_detail.dart';
 import '../model/data/screenshot.dart';
-import '../model/data/video_thumbnail.dart';
-import '../widgets/custom_appbar.dart';
-import '../widgets/favorite.dart';
 
 class DetailPage extends StatefulWidget {
   int? id;
@@ -21,14 +23,16 @@ class _DetailPageState extends State<DetailPage> {
   VideoPlayerController? _controller;
   bool isPlaying = false;
   String videoUrl = '';
+  late Future<ShortScreensShot> _ss;
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      var futureThumbVideo = await ThumbnailVideo.getThumbnailVideo(widget.id);
+      var futureThumbVideo = await ApiService().getThumbnailVideo(widget.id);
       videoUrl = futureThumbVideo.results[0].data.the480;
       _controller = VideoPlayerController.network(videoUrl)..initialize();
     });
+    _ss = ApiService().getScreenShot(widget.id);
     // TODO: implement initState
     super.initState();
   }
@@ -102,9 +106,8 @@ class _DetailPageState extends State<DetailPage> {
                             // color: Colors.amber,
                             child: FutureBuilder(
                                 future:
-                                    ResultScreenShot.getScreenShot(widget.id),
+                                    _ss,
                                 builder: (context, snapshot) {
-                                  // print('SCREENSHOT ${snapshot.data}');
                                   if (snapshot.hasData) {
                                     return SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,

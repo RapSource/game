@@ -57,11 +57,4 @@ class ResultScreenShot {
         "height": height,
         "is_deleted": isDeleted,
     };
-
-  static Future<ShortScreensShot> getScreenShot(id) async {
-      var apiResult = await http.get(Uri.parse('https://api.rawg.io/api/games/${id}/screenshots?key=05e574a9d3fb4906b0b832baf05b086d'));
-      var jsonObject = json.decode(apiResult.body);
-
-      return ShortScreensShot.fromJson(jsonObject);
-    }
 }
