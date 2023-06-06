@@ -136,7 +136,6 @@ class _DetailPageState extends State<DetailPage> {
                                                       onPressed: () {
                                                         setState(() {
                                                           isPlaying = !isPlaying;
-
                                                           if (isPlaying) {
                                                             _controller?.play();
                                                           } else {

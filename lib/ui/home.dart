@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gameku/model/api/api_service.dart';
+import 'package:gameku/provider/game_provider.dart';
 import 'package:gameku/widgets/custom_appbar.dart';
 import 'package:gameku/ui/detail_page.dart';
+import 'package:provider/provider.dart';
 
 import '../model/data/game_result.dart';
 import '../model/data/genres.dart';
@@ -28,13 +30,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(60), child: CustomAppBar()),
-      body: FutureBuilder(
-          future: _gameResult,
-          builder: (context, snapshot) {
-            return ListView.builder(
-              itemCount: snapshot.data?.results.length,
+      body: Consumer<GameProvider>(
+          builder: (context, state, _) {
+            if (state.state == ResultState.loading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state.state == ResultState.hasData) {
+              return ListView.builder(
+              itemCount: state.result.results.length,
               itemBuilder: (context, index) {
-                var game = snapshot.data?.results[index];
+                var game = state.result.results[index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
@@ -137,6 +141,25 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             );
+            } else if (state.state == ResultState.noData) {
+          return Center(
+            child: Material(
+              child: Text(state.message),
+            ),
+          );
+        } else if (state.state == ResultState.error) {
+          return Center(
+            child: Material(
+              child: Text(state.message),
+            ),
+          );
+        } else {
+          return const Center(
+            child: Material(
+              child: Text(''),
+            ),
+          );
+        }
           }),
     );
   }
