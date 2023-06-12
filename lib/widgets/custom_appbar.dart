@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gameku/ui/settings_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatefulWidget {
@@ -71,10 +71,16 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   void selectedItem(String value) {
     switch (value) {
-      case 'Setting':
-        break;
-      case 'Logout':
-        exit(0);
+      case 'Setting': {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: ((context) => const SettingsPage())
+          )
+        );
+      }
+      break;
+      case 'About':
     }
   }
 }
