@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 // To parse this JSON data, do
 //
 //     final shortScreensShot = shortScreensShotFromJson(jsonString);
-
-import 'dart:convert';
 
 ShortScreensShot shortScreensShotFromJson(String str) => ShortScreensShot.fromJson(json.decode(str));
 

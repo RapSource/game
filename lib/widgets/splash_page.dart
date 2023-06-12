@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gameku/provider/game_provider.dart';
 
-import 'package:gameku/widgets/bottom_tabbar.dart';
 import 'package:gameku/ui/home.dart';
 
 import 'package:lottie/lottie.dart';

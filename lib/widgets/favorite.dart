@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../ui/favorite_list_page.dart';
-
 class LoveIcon extends StatefulWidget {
   const LoveIcon({super.key});
 
@@ -11,7 +9,6 @@ class LoveIcon extends StatefulWidget {
 
 class _LoveIconState extends State<LoveIcon> {
   bool isLove = false;
-  final List _favorite = const [];
 
   @override
   Widget build(BuildContext context) {
@@ -19,17 +16,6 @@ class _LoveIconState extends State<LoveIcon> {
         onPressed: () {
           setState(() {
             isLove = !isLove;
-            if (isLove = true) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    // title: const Text('Adding to Favorite'),
-                    content: const Text('Adding to Favorite'),
-                  );
-                }
-              );
-            }
           });
         },
         icon: Icon(
