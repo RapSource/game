@@ -43,7 +43,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             padding: const EdgeInsets.all(8.0),
             child: PopupMenuButton<String>(
               itemBuilder: (BuildContext context) {
-                return {'Setting', 'Logout'}.map((String item) {
+                return {'Setting', 'About'}.map((String item) {
                   return PopupMenuItem(value: item, child: Text(item));
                 }).toList();
               },

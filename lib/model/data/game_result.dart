@@ -66,6 +66,14 @@ class Result {
         "rating": rating,
         "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
     };
+
+  String getGenre() {
+      var genre = "";
+      genres.forEach((element) {
+        genre = element.name;
+      });
+      return genre;
+    }
 }
 
 class Genre {

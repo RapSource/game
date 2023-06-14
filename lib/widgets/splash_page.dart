@@ -20,8 +20,8 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
+    Future.delayed(const Duration(seconds: 4), () async {
+      await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return ChangeNotifierProvider<GameProvider>(
           create: (_) => GameProvider(apiService: ApiService()),
           child: const HomePage(),
@@ -44,7 +44,6 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              // color: Colors.amberAccent,
               height: 200,
               width: 250,
               child: LottieBuilder.asset(
@@ -59,7 +58,7 @@ class _SplashPageState extends State<SplashPage> {
                       color: Colors.red,
                       fontSize: 20,
                     )),
-                SizedBox(width: 3),
+                const SizedBox(width: 3),
                 AnimatedTextKit(
                   animatedTexts: [
                     RotateAnimatedText('KU',
@@ -70,7 +69,7 @@ class _SplashPageState extends State<SplashPage> {
                   ],
                   isRepeatingAnimation: true,
                   repeatForever: true,
-                  pause: Duration(milliseconds: 5),
+                  pause: const Duration(milliseconds: 50),
                 )
               ],
             ),

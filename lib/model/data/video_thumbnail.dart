@@ -34,14 +34,6 @@ class ThumbnailVideo {
         "previous": previous,
         "results": List<dynamic>.from(results.map((x) => x.toJson())),
     };
-
-    // String getVideo() {
-    //   var video = "";
-    //   results.forEach((element) {
-    //     video += element.data.the480;
-    //   });
-    //   return video;
-    // }
 }
 
 class Result {

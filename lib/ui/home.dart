@@ -22,7 +22,8 @@ class _HomePageState extends State<HomePage> {
         if (state.state == ResultState.loading) {
           return Center(child: CircularProgressIndicator());
         } else if (state.state == ResultState.hasData) {
-          return const CardGame();
+          var gameResult = state.result;
+          return CardGame(gameResult: gameResult);
         } else if (state.state == ResultState.noData) {
           return Center(
             child: Material(
