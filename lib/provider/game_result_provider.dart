@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:gameku/model/api/api_service.dart';
 import 'package:gameku/model/data/game_result.dart';
 
-
 enum ResultState { loading, noData, hasData, error }
 
 class GameProvider extends ChangeNotifier {
@@ -40,5 +39,4 @@ class GameProvider extends ChangeNotifier {
       return _message = 'Error --> $e';
     }
   }
-
 }

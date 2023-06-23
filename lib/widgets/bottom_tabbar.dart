@@ -14,10 +14,8 @@ class _BottomTapBarState extends State<BottomTapBar> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    HomePage(),
-    CategoryPage(),
-    // GameList(),
-    // GameList(),
+    const HomePage(),
+    const CategoryPage(),
   ];
 
   @override
@@ -40,14 +38,6 @@ class _BottomTapBarState extends State<BottomTapBar> {
             icon: Icon(Icons.category),
             label: 'Kategori Game'
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.favorite),
-          //   label: 'Favorite'
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.person),
-          //   label: 'Profile'
-          // )
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/provider/game_provider.dart';
+import 'package:gameku/provider/game_result_provider.dart';
 
 import 'package:gameku/ui/home.dart';
 
@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import '../model/api/api_service.dart';
 
 class SplashPage extends StatefulWidget {
+  static const routeName = '/splash_page';
+
   const SplashPage({super.key});
 
   @override

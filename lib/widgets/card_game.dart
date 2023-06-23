@@ -27,7 +27,7 @@ class CardGame extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.all(10),
               width: MediaQuery.of(context).size.width,
-              height: 250,
+              height: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Color.fromARGB(255, 230, 228, 228),
@@ -41,7 +41,7 @@ class CardGame extends StatelessWidget {
                         topRight: Radius.circular(10)),
                     child: Image.network(
                       game.backgroundImage,
-                      height: 150,
+                      height: 200,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
                     ),
@@ -55,8 +55,7 @@ class CardGame extends StatelessWidget {
                           game.name,
                           textAlign: TextAlign.left,
                           style: const TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         Container(
@@ -66,8 +65,7 @@ class CardGame extends StatelessWidget {
                             color: Colors.black,
                           ))),
                           child: Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const Text(
                                 'Genre:',
@@ -79,8 +77,7 @@ class CardGame extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text('Rating: '),
                             Row(

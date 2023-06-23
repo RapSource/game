@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/provider/game_provider.dart';
 import 'package:gameku/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/game_result_provider.dart';
 import '../widgets/card_game.dart';
 
 class HomePage extends StatefulWidget {
