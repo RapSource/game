@@ -1,15 +1,3 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
-// To parse this JSON data, do
-//
-//     final gameDetail = gameDetailFromJson(jsonString);
-
-GameDetail gameDetailFromJson(String str) =>
-    GameDetail.fromJson(json.decode(str));
-
-String gameDetailToJson(GameDetail data) => json.encode(data.toJson());
-
 class GameDetail {
   int id;
   String slug;
@@ -251,14 +239,6 @@ class GameDetail {
         "clip": clip,
         "description_raw": descriptionRaw,
       };
-
-  static Future<GameDetail> getGameDetail(id) async {
-    var apiDetail = await http.get(Uri.parse(
-        'https://api.rawg.io/api/games/${id}?key=05e574a9d3fb4906b0b832baf05b086d'));
-    var jsonObject = json.decode(apiDetail.body);
-
-    return GameDetail.fromJson(jsonObject);
-  }
 
   String getGenre() {
     var genre = "";

@@ -1,13 +1,3 @@
-import 'dart:convert';
-
-// To parse this JSON data, do
-//
-//     final shortScreensShot = shortScreensShotFromJson(jsonString);
-
-ShortScreensShot shortScreensShotFromJson(String str) => ShortScreensShot.fromJson(json.decode(str));
-
-String shortScreensShotToJson(ShortScreensShot data) => json.encode(data.toJson());
-
 class ShortScreensShot {
     List<ResultScreenShot> results;
 

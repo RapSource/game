@@ -6,6 +6,8 @@ import '../provider/game_result_provider.dart';
 import '../widgets/card_game.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/home_page';
+
   const HomePage({super.key});
 
   @override
@@ -20,7 +22,7 @@ class _HomePageState extends State<HomePage> {
           preferredSize: Size.fromHeight(60), child: CustomAppBar()),
       body: Consumer<GameProvider>(builder: (context, state, _) {
         if (state.state == ResultState.loading) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state.state == ResultState.hasData) {
           var gameResult = state.result;
           return CardGame(gameResult: gameResult);

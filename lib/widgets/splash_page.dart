@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/provider/game_result_provider.dart';
-
 import 'package:gameku/ui/home.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:provider/provider.dart';
-
-import '../model/api/api_service.dart';
 
 class SplashPage extends StatefulWidget {
   static const routeName = '/splash_page';
@@ -23,12 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 4), () async {
-      await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return ChangeNotifierProvider<GameProvider>(
-          create: (_) => GameProvider(apiService: ApiService()),
-          child: const HomePage(),
-        );
-      }));
+      await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
     });
     super.initState();
   }

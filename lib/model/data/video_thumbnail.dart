@@ -1,13 +1,3 @@
-// To parse this JSON data, do
-//
-//     final thumbnailVideo = thumbnailVideoFromJson(jsonString);
-
-import 'dart:convert';
-
-ThumbnailVideo thumbnailVideoFromJson(String str) => ThumbnailVideo.fromJson(json.decode(str));
-
-String thumbnailVideoToJson(ThumbnailVideo data) => json.encode(data.toJson());
-
 class ThumbnailVideo {
     int count;
     dynamic next;

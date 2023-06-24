@@ -19,10 +19,7 @@ class CardGame extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailPage(id: game.id)));
+              Navigator.pushNamed(context, DetailPage.routeName);
             },
             child: Container(
               margin: const EdgeInsets.all(10),
