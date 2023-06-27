@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gameku/model/api/api_service.dart';
 import 'package:gameku/model/data/game_result.dart';
-
-enum ResultState { loading, noData, hasData, error }
+import 'package:gameku/provider/result_state.dart';
 
 class GameProvider extends ChangeNotifier {
   final ApiService apiService;

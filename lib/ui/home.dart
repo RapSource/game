@@ -3,6 +3,7 @@ import 'package:gameku/widgets/custom_appbar.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/game_result_provider.dart';
+import '../provider/result_state.dart';
 import '../widgets/card_game.dart';
 
 class HomePage extends StatefulWidget {
