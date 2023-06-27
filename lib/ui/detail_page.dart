@@ -109,10 +109,10 @@ class _DetailPageState extends State<DetailPage> {
                                   }
                                   return Consumer<ScreenShotProvider>(
                                       builder: (context, ss, _) {
-                                    if (detail.state == ResultState.loading) {
+                                    if (ss.state == ResultState.loading) {
                                       return Center(
                                           child: CircularProgressIndicator());
-                                    } else if (detail.state ==
+                                    } else if (ss.state ==
                                         ResultState.hasData) {
                                       return SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
