@@ -16,7 +16,7 @@ class ApiService {
     return GameResult.fromJson(jsonObject);
   }
 
-    Future<GameDetail> getGameDetail(String id) async {
+    Future<GameDetail> getGameDetail(int id) async {
     var apiDetail = await http.get(Uri.parse(
         'https://api.rawg.io/api/games/$id?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiDetail.body);
@@ -24,7 +24,7 @@ class ApiService {
     return GameDetail.fromJson(jsonObject);
   }
 
-  Future<ThumbnailVideo> getThumbnailVideo(String id) async {
+  Future<ThumbnailVideo> getThumbnailVideo(int id) async {
     var apiResult = await http.get(Uri.parse(
         'https://api.rawg.io/api/games/$id/movies?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiResult.body);
@@ -32,7 +32,7 @@ class ApiService {
     return ThumbnailVideo.fromJson(jsonObject);
   }
 
-  Future<ShortScreensShot> getScreenShot(String id) async {
+  Future<ShortScreensShot> getScreenShot(int id) async {
     var apiResult = await http.get(Uri.parse(
         'https://api.rawg.io/api/games/$id/screenshots?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiResult.body);

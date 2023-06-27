@@ -11,7 +11,7 @@ class ScreenShotProvider extends ChangeNotifier {
   late ShortScreensShot _screenShot;
   ShortScreensShot get screenShot => _screenShot;
 
-  Future<dynamic> screenShotGame(id) async {
+  Future<dynamic> screenShotGame(int id) async {
     final ss = await apiService.getScreenShot(id);
     _screenShot = ss;
     notifyListeners();

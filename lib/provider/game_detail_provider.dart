@@ -11,7 +11,7 @@ class GameDetailProvider extends ChangeNotifier {
   late GameDetail _gameDetail;
   GameDetail get gameDetail => _gameDetail;
 
-  Future<dynamic> fetchDetailGame(id) async {
+  Future<dynamic> fetchDetailGame(int id) async {
     final detailGame = await apiService.getGameDetail(id);
     _gameDetail = detailGame;
     notifyListeners();
