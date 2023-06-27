@@ -30,8 +30,6 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     Provider.of<GameDetailProvider>(context, listen: false)
         .fetchDetailGame(widget.id);
-    Provider.of<ScreenShotProvider>(context, listen: false)
-        .screenShotGame(widget.id);
     super.initState();
   }
 
@@ -109,6 +107,7 @@ class _DetailPageState extends State<DetailPage> {
                                   }
                                   return Consumer<ScreenShotProvider>(
                                       builder: (context, ss, _) {
+                                    ss.screenShotGame(widget.id);
                                     if (ss.state == ResultState.loading) {
                                       return Center(
                                           child: CircularProgressIndicator());
