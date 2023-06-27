@@ -9,6 +9,7 @@ class ScreenShotProvider extends ChangeNotifier {
 
   ScreenShotProvider({required this.apiService});
 
+  bool isFetch = false;
   late ShortScreensShot _screenShot;
   late ResultState _state;
 
@@ -22,6 +23,7 @@ class ScreenShotProvider extends ChangeNotifier {
      final ss = await apiService.getScreenShot(id);
     _screenShot = ss;
     _state = ResultState.hasData;
+    isFetch = true;
     notifyListeners(); 
     } catch (e) {
       _state = ResultState.error;

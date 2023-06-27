@@ -107,10 +107,14 @@ class _DetailPageState extends State<DetailPage> {
                                   }
                                   return Consumer<ScreenShotProvider>(
                                       builder: (context, ss, _) {
-                                    ss.screenShotGame(widget.id);
+                                    if (!ss.isFetch) {
+                                      ss.screenShotGame(widget.id);
+                                    }
                                     if (ss.state == ResultState.loading) {
                                       return Center(
-                                          child: CircularProgressIndicator());
+                                          child: CircularProgressIndicator(
+                                            color: Color.fromARGB(141, 7, 119, 139),
+                                          ));
                                     } else if (ss.state ==
                                         ResultState.hasData) {
                                       return SingleChildScrollView(
