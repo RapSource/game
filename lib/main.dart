@@ -23,9 +23,6 @@ class MyApp extends StatelessWidget {
             create: (_) => GameProvider(apiService: ApiService())),
         ChangeNotifierProvider<GameDetailProvider>(
             create: (_) => GameDetailProvider(apiService: ApiService())),
-        ChangeNotifierProvider<ScreenShotProvider>(
-            create: (_) => ScreenShotProvider(apiService: ApiService())),
-        
       ],
       child: MaterialApp(initialRoute: SplashPage.routeName, routes: {
         SplashPage.routeName: (context) => const SplashPage(),

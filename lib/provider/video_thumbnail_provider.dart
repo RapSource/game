@@ -10,8 +10,8 @@ class VideoThumbnailProvider extends ChangeNotifier {
 
   String _videoUrl = '';
   bool isFetch = false;
-  late VideoPlayerController _videoThumbnail;
-  VideoPlayerController get videoController => _videoThumbnail;
+  VideoPlayerController? _videoThumbnail;
+  VideoPlayerController? get videoController => _videoThumbnail;
 
   Future<dynamic> videoThumbnailProvider(int id) async {
     final video = await apiService.getThumbnailVideo(id);
@@ -23,7 +23,7 @@ class VideoThumbnailProvider extends ChangeNotifier {
 
   @override
   void dispose() {
-    videoController.dispose();
+    videoController?.dispose();
 
     super.dispose();
   }
