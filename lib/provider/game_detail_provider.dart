@@ -9,14 +9,11 @@ class GameDetailProvider extends ChangeNotifier {
   GameDetailProvider({required this.apiService});
 
   late GameDetail _gameDetail;
-  String _message = '';
-
-  String get message => _message;
   GameDetail get gameDetail => _gameDetail;
 
   Future<dynamic> fetchDetailGame(id) async {
-    final gameDetail = await apiService.getGameDetail(id);
-    _gameDetail = gameDetail;
+    final detailGame = await apiService.getGameDetail(id);
+    _gameDetail = detailGame;
     notifyListeners();
 
     return _gameDetail;

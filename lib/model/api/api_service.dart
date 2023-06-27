@@ -7,35 +7,34 @@ import '../data/screenshot.dart';
 import '../data/video_thumbnail.dart';
 
 class ApiService {
-  int? id;
 
   Future<GameResult> getGameResult() async {
     var apiResult = await http.get(Uri.parse(
-        'https://api.rawg.io/api/games?results&key=05e574a9d3fb4906b0b832baf05b086d'));
+        'https://api.rawg.io/api/games?results&key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiResult.body);
 
     return GameResult.fromJson(jsonObject);
   }
 
-    Future<GameDetail> getGameDetail(id) async {
+    Future<GameDetail> getGameDetail(String id) async {
     var apiDetail = await http.get(Uri.parse(
-        'https://api.rawg.io/api/games/${id}?key=05e574a9d3fb4906b0b832baf05b086d'));
+        'https://api.rawg.io/api/games/$id?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiDetail.body);
 
     return GameDetail.fromJson(jsonObject);
   }
 
-  Future<ThumbnailVideo> getThumbnailVideo(id) async {
+  Future<ThumbnailVideo> getThumbnailVideo(String id) async {
     var apiResult = await http.get(Uri.parse(
-        'https://api.rawg.io/api/games/${id}/movies?key=05e574a9d3fb4906b0b832baf05b086d'));
+        'https://api.rawg.io/api/games/$id/movies?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiResult.body);
 
     return ThumbnailVideo.fromJson(jsonObject);
   }
 
-  Future<ShortScreensShot> getScreenShot(id) async {
+  Future<ShortScreensShot> getScreenShot(String id) async {
     var apiResult = await http.get(Uri.parse(
-        'https://api.rawg.io/api/games/${id}/screenshots?key=05e574a9d3fb4906b0b832baf05b086d'));
+        'https://api.rawg.io/api/games/$id/screenshots?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiResult.body);
 
     return ShortScreensShot.fromJson(jsonObject);

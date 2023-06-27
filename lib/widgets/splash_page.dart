@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 4), () async {
-      await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+      await Navigator.of(context).pushReplacementNamed(HomePage.routeName);
     });
     super.initState();
   }

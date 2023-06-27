@@ -4,12 +4,11 @@ import '../model/api/api_service.dart';
 import '../model/data/screenshot.dart';
 
 class ScreenShotProvider extends ChangeNotifier {
-  late ShortScreensShot _screenShot;
-  
   final ApiService apiService;
 
   ScreenShotProvider({required this.apiService});
 
+  late ShortScreensShot _screenShot;
   ShortScreensShot get screenShot => _screenShot;
 
   Future<dynamic> screenShotGame(id) async {

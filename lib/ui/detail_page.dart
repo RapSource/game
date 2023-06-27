@@ -16,7 +16,7 @@ class DetailPage extends StatefulWidget {
 
   int? id;
 
-  DetailPage({this.id});
+  DetailPage({required this.id});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -77,10 +77,10 @@ class _DetailPageState extends State<DetailPage> {
                               fontSize: 30,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Text(detail.gameDetail.getGenre().toString(),
                             style: GoogleFonts.roboto(fontSize: 16.0)),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Container(
                             height: 200,
                             child: Consumer<VideoThumbnailProvider>(

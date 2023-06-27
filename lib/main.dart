@@ -28,14 +28,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<VideoThumbnailProvider>(
             create: (_) => VideoThumbnailProvider(apiService: ApiService())),
       ],
-      child: MaterialApp(
-        initialRoute: SplashPage.routeName,
-        routes: {
-          SplashPage.routeName: (context) => const SplashPage(),
-          HomePage.routeName: (context) => const HomePage(),
-          DetailPage.routeName: (context) => DetailPage()
-        }
-      ),
+      child: MaterialApp(initialRoute: SplashPage.routeName, routes: {
+        SplashPage.routeName: (context) => const SplashPage(),
+        HomePage.routeName: (context) => const HomePage(),
+        DetailPage.routeName: (context) => DetailPage(
+              id: int.parse(
+                ModalRoute.of(context)?.settings.arguments.toString() ?? '',
+              ),
+              // gameDetail:
+              //     ModalRoute.of(context)?.settings.arguments as GameDetail,
+            )
+      }),
     );
   }
 }
