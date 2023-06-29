@@ -111,7 +111,7 @@ class _DetailPageState extends State<DetailPage> {
                                       ss.screenShotGame(widget.id);
                                     }
                                     if (ss.state == ResultState.loading) {
-                                      return Center(
+                                      return const Center(
                                           child: CircularProgressIndicator(
                                             color: Color.fromARGB(141, 7, 119, 139),
                                           ));

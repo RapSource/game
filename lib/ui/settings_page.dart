@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gameku/provider/scheduling_provider.dart';
+import 'package:gameku/widgets/custom.dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/platform_widget.dart';
 
@@ -24,42 +26,27 @@ class SettingsPage extends StatelessWidget {
                 Text('Dark Theme', style: GoogleFonts.roboto(fontSize: 18.0)),
             trailing: Switch.adaptive(
               value: false,
-              onChanged: (value) {
-                defaultTargetPlatform == TargetPlatform.iOS
-                    ? showCupertinoDialog(
-                        context: context,
-                        barrierDismissible: true,
-                        builder: (context) {
-                          return CupertinoAlertDialog(
-                            title: const Text('Coming Soon!'),
-                            content:
-                                const Text('This feature will be coming soon!'),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: const Text('Ok'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              )
-                            ],
-                          );
-                        })
-                    : showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Coming Soon!'),
-                            content:
-                                const Text('This feature will be coming soon!'),
-                            actions: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('Ok'))
-                            ],
-                          );
-                        });
+              onChanged: (value) => customDialog(context),
+            ),
+          ),
+        ),
+        const Divider(),
+        Material(
+          child: ListTile(
+            title:
+                Text('Scheduling Games', style: GoogleFonts.roboto(fontSize: 18.0)),
+            trailing: Consumer<SchedulingProvider>(
+              builder: (context, scheduled, _) {
+                return Switch.adaptive(
+                  value: scheduled.isScheduled,
+                  onChanged: (value) async {
+                    if (Platform.isIOS) {
+                      customDialog(context);
+                    } else {
+                      scheduled.scheduledGames(value);
+                    }
+                  },
+                );
               },
             ),
           ),

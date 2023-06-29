@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gameku/ui/settings_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/scheduling_provider.dart';
+import '../ui/about_page.dart';
+import '../ui/detail_page.dart';
+import '../utils/notifications_helper.dart';
 
 class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
@@ -10,13 +16,48 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  
+  final NotificationHelper _notificationHelper = NotificationHelper();
+  // int _menuItemIndex = 0;
+
+  // final List<PopupMenuItem> _popupMenuItem = [
+  //   const PopupMenuItem(value: 1, child: Text('Setting')),
+  //   const PopupMenuItem(value: 2, child: Text('About')),
+  // ];
+
+  // final List<Widget> _listWidget = [
+  //   ChangeNotifierProvider<SchedulingProvider>(
+  //     create: (_) => SchedulingProvider(),
+  //     child: const SettingsPage(),
+  //   ),
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //     builder: ((context) => const AboutPage())));
+  // ];
+
+  // void _onBottomNavTapped(int index) {
+  //   setState(() {
+  //     _menuItemIndex = index;
+  //   });
+  // }
+
+   @override
+  void initState() {
+    super.initState();
+    _notificationHelper.configureSelectNotificationSubject(
+        DetailPage.routeName);
+  }
+  @override
+  void dispose() {
+    selectNotificationSubject.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
             'assets/images/mobile-game.png',
@@ -41,13 +82,39 @@ class _CustomAppBarState extends State<CustomAppBar> {
       actions: <Widget>[
         Padding(
             padding: const EdgeInsets.all(8.0),
-            child: PopupMenuButton<String>(
-              itemBuilder: (BuildContext context) {
-                return {'Setting', 'About'}.map((String item) {
-                  return PopupMenuItem(value: item, child: Text(item));
-                }).toList();
+            child: PopupMenuButton<int>(
+              elevation: 2,
+              itemBuilder: (BuildContext context) => [
+                const PopupMenuItem(
+                  value: 1,
+                  child: Text('Setting')
+                ),
+                const PopupMenuItem(
+                  value: 2,
+                  child: Text('About')
+                ),
+              ],
+              onSelected: (value) {
+                if (value == 1) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                         return ChangeNotifierProvider<SchedulingProvider>(
+                          create: (_) => SchedulingProvider(),
+                          child: const SettingsPage()
+                          );
+                        })
+                  );
+                } else if (value == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => const AboutPage())
+                    )
+                  );
+                }
               },
-              onSelected: selectedItem,
             )),
       ],
       flexibleSpace: Container(
@@ -67,20 +134,5 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 repeat: ImageRepeat.repeat)),
       ),
     );
-  }
-
-  void selectedItem(String value) {
-    switch (value) {
-      case 'Setting': {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: ((context) => const SettingsPage())
-          )
-        );
-      }
-      break;
-      case 'About':
-    }
   }
 }

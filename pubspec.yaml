@@ -42,6 +42,10 @@ dependencies:
   readmore: ^2.2.0
   video_player: ^2.6.1
   provider: ^6.0.5
+  intl: ^0.18.1
+  flutter_local_notifications: ^14.1.1
+  rxdart: ^0.27.7
+  android_alarm_manager_plus: ^3.0.1
 
 dev_dependencies:
   flutter_test:
