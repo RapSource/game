@@ -17,30 +17,7 @@ class CustomAppBar extends StatefulWidget {
 
 class _CustomAppBarState extends State<CustomAppBar> {
   final NotificationHelper _notificationHelper = NotificationHelper();
-  // int _menuItemIndex = 0;
-
-  // final List<PopupMenuItem> _popupMenuItem = [
-  //   const PopupMenuItem(value: 1, child: Text('Setting')),
-  //   const PopupMenuItem(value: 2, child: Text('About')),
-  // ];
-
-  // final List<Widget> _listWidget = [
-  //   ChangeNotifierProvider<SchedulingProvider>(
-  //     create: (_) => SchedulingProvider(),
-  //     child: const SettingsPage(),
-  //   ),
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //     builder: ((context) => const AboutPage())));
-  // ];
-
-  // void _onBottomNavTapped(int index) {
-  //   setState(() {
-  //     _menuItemIndex = index;
-  //   });
-  // }
-
+  
    @override
   void initState() {
     super.initState();

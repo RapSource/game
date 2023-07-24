@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:gameku/provider/game_result_provider.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../model/api/api_service.dart';
+import '../model/data/db/database_helper.dart';
+import '../model/data/game_result.dart';
+import '../provider/database_provider.dart';
 import '../provider/game_detail_provider.dart';
 import '../provider/result_state.dart';
 import '../provider/screenshot_provide.dart';
 import '../provider/video_thumbnail_provider.dart';
 import '../widgets/custom_appbar.dart';
 import 'package:readmore/readmore.dart';
-import '../widgets/favorite.dart';
 import 'package:video_player/video_player.dart';
+
+import '../widgets/favorite.dart';
 
 class DetailPage extends StatefulWidget {
   static const routeName = '/detail_page';
@@ -30,6 +35,7 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     Provider.of<GameDetailProvider>(context, listen: false)
         .fetchDetailGame(widget.id);
+    Provider.of<GameProvider>(context, listen: false);
     super.initState();
   }
 
@@ -37,10 +43,15 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<GameProvider>(
+            create: (_) => GameProvider(apiService: ApiService())),
         ChangeNotifierProvider<ScreenShotProvider>(
             create: (_) => ScreenShotProvider(apiService: ApiService())),
         ChangeNotifierProvider<VideoThumbnailProvider>(
-            create: (_) => VideoThumbnailProvider(apiService: ApiService()))
+            create: (_) => VideoThumbnailProvider(apiService: ApiService())),
+        ChangeNotifierProvider(
+          create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+        )
       ],
       child: Scaffold(
           appBar: PreferredSize(
@@ -48,7 +59,7 @@ class _DetailPageState extends State<DetailPage> {
           body: Consumer<GameDetailProvider>(
             builder: (context, detail, _) {
               if (detail.state == ResultState.loading) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (detail.state == ResultState.hasData) {
                 return SingleChildScrollView(
                   child: Column(
@@ -77,7 +88,7 @@ class _DetailPageState extends State<DetailPage> {
                                       color: Colors.white,
                                     )),
                               ),
-                              const LoveIcon(),
+                              FavoritePage(gameFavorite: detail.gameDetail),
                             ],
                           ),
                         ))
@@ -113,8 +124,8 @@ class _DetailPageState extends State<DetailPage> {
                                     if (ss.state == ResultState.loading) {
                                       return const Center(
                                           child: CircularProgressIndicator(
-                                            color: Color.fromARGB(141, 7, 119, 139),
-                                          ));
+                                        color: Color.fromARGB(141, 7, 119, 139),
+                                      ));
                                     } else if (ss.state ==
                                         ResultState.hasData) {
                                       return SingleChildScrollView(

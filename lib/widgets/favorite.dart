@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class LoveIcon extends StatefulWidget {
-  const LoveIcon({super.key});
+import '../model/data/game_detail.dart';
+import '../provider/database_provider.dart';
 
-  @override
-  State<LoveIcon> createState() => _LoveIconState();
-}
+class FavoritePage extends StatelessWidget {
+  final GameDetail gameFavorite;
 
-class _LoveIconState extends State<LoveIcon> {
-  bool isLove = false;
+  const FavoritePage({required this.gameFavorite});
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          setState(() {
-            isLove = !isLove;
-          });
-        },
-        icon: Icon(
-          size: 32.0,
-          isLove ? Icons.favorite : Icons.favorite_border,
-          color: Colors.red,
-        ));
+    return Consumer<DatabaseProvider>(
+      builder: (context, provider, child) {
+        var game = gameFavorite.id;
+        return FutureBuilder<bool>(
+            future: provider.isFavorited(game),
+            builder: (context, snapshot) {
+              var isFavorited = snapshot.data ?? false;
+              return isFavorited
+                  ? IconButton(
+                      onPressed: () => provider.addFavorite(gameFavorite),
+                      icon: const Icon(Icons.favorite, color: Colors.red, size: 32))
+                  : IconButton(
+                      onPressed: () => provider.removeFavorite(game),
+                      icon: const Icon(Icons.favorite_border, size: 32,));
+            });
+      },
+    );
   }
 }

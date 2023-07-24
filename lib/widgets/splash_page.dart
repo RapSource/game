@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/ui/home.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+
+import 'bottom_tabbar.dart';
 
 class SplashPage extends StatefulWidget {
   static const routeName = '/splash_page';
@@ -18,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 4), () async {
-      await Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+      await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const BottomTapBar()));
     });
     super.initState();
   }

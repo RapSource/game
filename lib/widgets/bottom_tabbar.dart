@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import '../ui/category.dart';
+import 'package:gameku/ui/favorite_list_page.dart';
 import '../ui/home.dart';
 
 
 class BottomTapBar extends StatefulWidget {
+  static const routeName = '/tabbar';
+
   const BottomTapBar({super.key});
 
   @override
@@ -15,7 +17,7 @@ class _BottomTapBarState extends State<BottomTapBar> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const CategoryPage(),
+    const FavoriteList(),
   ];
 
   @override
@@ -32,11 +34,11 @@ class _BottomTapBarState extends State<BottomTapBar> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Daftar Game'
+            label: 'Game'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            label: 'Kategori Game'
+            icon: Icon(Icons.favorite),
+            label: 'Favorite'
           ),
         ],
       ),
