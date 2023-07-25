@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../model/api/api_service.dart';
 import '../model/data/db/database_helper.dart';
-import '../model/data/game_result.dart';
 import '../provider/database_provider.dart';
 import '../provider/game_detail_provider.dart';
 import '../provider/result_state.dart';
@@ -14,8 +13,6 @@ import '../provider/video_thumbnail_provider.dart';
 import '../widgets/custom_appbar.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
-
-import '../widgets/favorite.dart';
 
 class DetailPage extends StatefulWidget {
   static const routeName = '/detail_page';
@@ -88,7 +85,34 @@ class _DetailPageState extends State<DetailPage> {
                                       color: Colors.white,
                                     )),
                               ),
-                              FavoritePage(gameFavorite: detail.gameDetail),
+                              Consumer<DatabaseProvider>(
+                                builder: (context, favoriteIcon, child) {
+                                  return FutureBuilder<bool>(
+                                      future: favoriteIcon
+                                          .isFavorited(detail.gameDetail.id),
+                                      builder: (context, snapshot) {
+                                        var isFavorited =
+                                            snapshot.data ?? false;
+                                        return isFavorited
+                                            ? IconButton(
+                                                onPressed: () =>
+                                                    favoriteIcon.addFavorite(
+                                                        detail.gameDetail),
+                                                icon: const Icon(Icons.favorite,
+                                                    color: Colors.red,
+                                                    size: 32))
+                                            : IconButton(
+                                                onPressed: () =>
+                                                    favoriteIcon.removeFavorite(
+                                                        detail.gameDetail.id),
+                                                icon: const Icon(
+                                                  Icons.favorite_border,
+                                                  color: Colors.red,
+                                                  size: 32,
+                                                ));
+                                      });
+                                },
+                              ),
                             ],
                           ),
                         ))

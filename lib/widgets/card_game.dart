@@ -19,7 +19,8 @@ class CardGame extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, DetailPage.routeName, arguments: game.id);
+              Navigator.pushNamed(context, DetailPage.routeName,
+                  arguments: game.id);
             },
             child: Container(
               margin: const EdgeInsets.all(10),
@@ -84,7 +85,8 @@ class CardGame extends StatelessWidget {
                                 const SizedBox(height: 5),
                                 const Icon(
                                   Icons.star,
-                                  size: 15,
+                                  color: Colors.orangeAccent,
+                                  size: 18,
                                 )
                               ],
                             ),
