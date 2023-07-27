@@ -58,9 +58,9 @@ class MyApp extends StatelessWidget {
                   preferencesHelper: PreferencesHelper(
                       sharedPreferences: SharedPreferences.getInstance()),
                 )),
-        ChangeNotifierProvider(
-          create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
-        )
+        // ChangeNotifierProvider(
+        //   create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+        // )
       ],
       child: Consumer<PreferencesProvider>(builder: (context, provider, child) {
         return MaterialApp(

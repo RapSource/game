@@ -14,6 +14,8 @@ import '../widgets/custom_appbar.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
 
+import '../widgets/favorite.dart';
+
 class DetailPage extends StatefulWidget {
   static const routeName = '/detail_page';
 
@@ -32,7 +34,6 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     Provider.of<GameDetailProvider>(context, listen: false)
         .fetchDetailGame(widget.id);
-    Provider.of<GameProvider>(context, listen: false);
     super.initState();
   }
 
@@ -40,14 +41,12 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<GameProvider>(
-            create: (_) => GameProvider(apiService: ApiService())),
         ChangeNotifierProvider<ScreenShotProvider>(
             create: (_) => ScreenShotProvider(apiService: ApiService())),
         ChangeNotifierProvider<VideoThumbnailProvider>(
             create: (_) => VideoThumbnailProvider(apiService: ApiService())),
         ChangeNotifierProvider(
-          create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+            create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         )
       ],
       child: Scaffold(
@@ -86,30 +85,28 @@ class _DetailPageState extends State<DetailPage> {
                                     )),
                               ),
                               Consumer<DatabaseProvider>(
-                                builder: (context, favoriteIcon, child) {
+                                builder: (context, provider, child) {
                                   return FutureBuilder<bool>(
-                                      future: favoriteIcon
-                                          .isFavorited(detail.gameDetail.id),
+                                      future:
+                                          provider.isFavorited(detail.gameDetail.id),
                                       builder: (context, snapshot) {
                                         var isFavorited =
                                             snapshot.data ?? false;
                                         return isFavorited
                                             ? IconButton(
-                                                onPressed: () =>
-                                                    favoriteIcon.addFavorite(
-                                                        detail.gameDetail),
+                                                onPressed: () => provider
+                                                    .addFavorite(detail.gameDetail),
+                                                color: Colors.red,
                                                 icon: const Icon(Icons.favorite,
-                                                    color: Colors.red,
                                                     size: 32))
                                             : IconButton(
                                                 onPressed: () =>
-                                                    favoriteIcon.removeFavorite(
+                                                    provider.removeFavorite(
                                                         detail.gameDetail.id),
+                                                color: Colors.red,
                                                 icon: const Icon(
-                                                  Icons.favorite_border,
-                                                  color: Colors.red,
-                                                  size: 32,
-                                                ));
+                                                    Icons.favorite_border,
+                                                    size: 32));
                                       });
                                 },
                               ),
