@@ -1,4 +1,3 @@
-import 'package:gameku/model/data/game_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../favorite.dart';
@@ -25,8 +24,6 @@ class DatabaseHelper {
             id INT PRIMARY KEY,
             name TEXT,
             background_image TEXT,
-            genres TEXT,
-            rating DOUBLE
           )
           '''
         );
@@ -49,11 +46,11 @@ class DatabaseHelper {
     await db!.insert(_tblFavorite, game.toJson());
   }
 
-  Future<List<GameDetail>> getFavorite() async {
+  Future<List<Favorite>> getFavorite() async {
     final db = await database;
     List<Map<String, dynamic>> results = await db!.query(_tblFavorite);
 
-    return results.map((res) => GameDetail.fromJson(res)).toList();
+    return results.map((res) => Favorite.fromJson(res)).toList();
   }
 
   Future<Map> getFavoriteById(int id) async {

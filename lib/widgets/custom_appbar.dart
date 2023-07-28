@@ -42,7 +42,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
             height: 35,
           ),
           Container(
-              margin: const EdgeInsets.only(top: 15.0),
+              margin: const EdgeInsets.only(top: 15.0, left: 5.0),
               child: Row(
                 children: [
                   Text('Game',

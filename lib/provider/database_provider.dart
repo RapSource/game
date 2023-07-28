@@ -17,11 +17,11 @@ class DatabaseProvider extends ChangeNotifier{
   String _message = '';
   String get message => _message;
 
-  List<GameDetail> _favorite = [];
-  List<GameDetail> get favorite => _favorite;
+  List<Favorite> _favorite = [];
+  List<Favorite> get favorite => _favorite;
 
   void _getFavorites() async {
-    _favorite = (await databaseHelper.getFavorite()).cast<GameDetail>();
+    _favorite = (await databaseHelper.getFavorite()).cast<Favorite>();
     if (_favorite.length > 0) {
       _state = ResultState.hasData;
     } else {
@@ -37,8 +37,7 @@ class DatabaseProvider extends ChangeNotifier{
         id: game.id,
         name: game.name,
         backgroundImage: game.backgroundImage,
-        genres: game.getGenre(),
-        rating: game.rating)
+        )
       );
       _getFavorites();
     } catch (e) {
