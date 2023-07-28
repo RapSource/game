@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/provider/game_result_provider.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +12,6 @@ import '../provider/video_thumbnail_provider.dart';
 import '../widgets/custom_appbar.dart';
 import 'package:readmore/readmore.dart';
 import 'package:video_player/video_player.dart';
-
-import '../widgets/favorite.dart';
 
 class DetailPage extends StatefulWidget {
   static const routeName = '/detail_page';
@@ -46,7 +43,7 @@ class _DetailPageState extends State<DetailPage> {
         ChangeNotifierProvider<VideoThumbnailProvider>(
             create: (_) => VideoThumbnailProvider(apiService: ApiService())),
         ChangeNotifierProvider(
-            create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+          create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         )
       ],
       child: Scaffold(
@@ -87,25 +84,26 @@ class _DetailPageState extends State<DetailPage> {
                               Consumer<DatabaseProvider>(
                                 builder: (context, provider, child) {
                                   return FutureBuilder<bool>(
-                                      future:
-                                          provider.isFavorited(detail.gameDetail.id),
+                                      future: provider
+                                          .isFavorited(detail.gameDetail.id),
                                       builder: (context, snapshot) {
                                         var isFavorited =
                                             snapshot.data ?? false;
                                         return isFavorited
                                             ? IconButton(
-                                                onPressed: () => provider
-                                                    .addFavorite(detail.gameDetail),
-                                                color: Colors.red,
-                                                icon: const Icon(Icons.favorite,
-                                                    size: 32))
-                                            : IconButton(
                                                 onPressed: () =>
                                                     provider.removeFavorite(
                                                         detail.gameDetail.id),
                                                 color: Colors.red,
                                                 icon: const Icon(
-                                                    Icons.favorite_border,
+                                                    Icons.favorite,
+                                                    size: 32))
+                                            : IconButton(
+                                                onPressed: () =>
+                                                    provider.addFavorite(
+                                                        detail.gameDetail),
+                                                color: Colors.red,
+                                                icon: const Icon(Icons.favorite_border,
                                                     size: 32));
                                       });
                                 },

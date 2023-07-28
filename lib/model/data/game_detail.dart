@@ -421,26 +421,21 @@ class ParentPlatform {
 
 class PlatformElement {
   PlatformPlatform platform;
-  DateTime releasedAt;
   Requirements requirements;
 
   PlatformElement({
     required this.platform,
-    required this.releasedAt,
     required this.requirements,
   });
 
   factory PlatformElement.fromJson(Map<String, dynamic> json) =>
       PlatformElement(
         platform: PlatformPlatform.fromJson(json["platform"]),
-        releasedAt: DateTime.parse(json["released_at"]),
         requirements: Requirements.fromJson(json["requirements"]),
       );
 
   Map<String, dynamic> toJson() => {
         "platform": platform.toJson(),
-        "released_at":
-            "${releasedAt.year.toString().padLeft(4, '0')}-${releasedAt.month.toString().padLeft(2, '0')}-${releasedAt.day.toString().padLeft(2, '0')}",
         "requirements": requirements.toJson(),
       };
 }

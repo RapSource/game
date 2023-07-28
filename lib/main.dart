@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gameku/common/navigation.dart';
-import 'package:gameku/model/data/db/database_helper.dart';
-import 'package:gameku/provider/database_provider.dart';
 import 'package:gameku/provider/game_detail_provider.dart';
 import 'package:gameku/provider/game_result_provider.dart';
 import 'package:gameku/provider/preferences_provider.dart';
@@ -58,9 +56,6 @@ class MyApp extends StatelessWidget {
                   preferencesHelper: PreferencesHelper(
                       sharedPreferences: SharedPreferences.getInstance()),
                 )),
-        // ChangeNotifierProvider(
-        //   create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
-        // )
       ],
       child: Consumer<PreferencesProvider>(builder: (context, provider, child) {
         return MaterialApp(

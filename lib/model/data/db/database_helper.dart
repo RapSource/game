@@ -1,6 +1,8 @@
 import 'package:gameku/model/data/game_detail.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../favorite.dart';
+
 class DatabaseHelper {
   static DatabaseHelper? _instance;
   static Database? _database;
@@ -42,7 +44,7 @@ class DatabaseHelper {
     return _database;
   }
 
-  Future<void> insertFavorite(GameDetail game) async {
+  Future<void> insertFavorite(Favorite game) async {
     final db = await database;
     await db!.insert(_tblFavorite, game.toJson());
   }

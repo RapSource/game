@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../model/data/db/database_helper.dart';
 import '../provider/database_provider.dart';
 import '../provider/result_state.dart';
 import '../widgets/platform_widget.dart';
@@ -16,7 +17,11 @@ class FavoriteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlatformWidget(androidBuilder: _buildAndroid, iosBuilder: _buildIos);
+    return ChangeNotifierProvider(
+      create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
+      child:
+          PlatformWidget(androidBuilder: _buildAndroid, iosBuilder: _buildIos),
+    );
   }
 
   Widget _buildAndroid(BuildContext context) {

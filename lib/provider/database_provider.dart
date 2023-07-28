@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:gameku/model/data/db/database_helper.dart';
+import 'package:gameku/model/data/favorite.dart';
 import 'package:gameku/model/data/game_detail.dart';
 import 'package:gameku/provider/result_state.dart';
 
@@ -32,7 +33,13 @@ class DatabaseProvider extends ChangeNotifier{
 
   void addFavorite(GameDetail game) async {
     try {
-      await databaseHelper.insertFavorite(game);
+      await databaseHelper.insertFavorite(Favorite(
+        id: game.id,
+        name: game.name,
+        backgroundImage: game.backgroundImage,
+        genres: game.getGenre(),
+        rating: game.rating)
+      );
       _getFavorites();
     } catch (e) {
       _state = ResultState.error;
