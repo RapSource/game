@@ -247,6 +247,14 @@ class GameDetail {
     });
     return genre;
   }
+
+  String storeUrl() {
+    var urlStore = "";
+    developers.forEach((element) {
+      urlStore += element.domain!;
+    });
+    return urlStore;
+  }
 }
 
 class AddedByStatus {

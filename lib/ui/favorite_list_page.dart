@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gameku/ui/settings_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../model/data/db/database_helper.dart';
 import '../provider/database_provider.dart';
 import '../provider/result_state.dart';
-import '../provider/scheduling_provider.dart';
 import '../widgets/platform_widget.dart';
-import 'about_page.dart';
+import '../widgets/popup_menu_item.dart';
 import 'detail_page.dart';
 
 class FavoriteList extends StatelessWidget {
@@ -30,64 +28,47 @@ class FavoriteList extends StatelessWidget {
 
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/mobile-game.png',
-              fit: BoxFit.contain,
-              height: 35,
-            ),
-            Container(
-                margin: const EdgeInsets.only(top: 15.0, left: 5.0),
-                child: Text(favoriteTitle,
-                    style: GoogleFonts.poppins(
-                        color: Colors.yellow, fontWeight: FontWeight.bold)))
-          ],
-        ),
-        centerTitle: true,
-        actions: <Widget>[
-          Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PopupMenuButton<int>(
-                elevation: 2,
-                itemBuilder: (BuildContext context) => [
-                  const PopupMenuItem(value: 1, child: Text('Setting')),
-                  const PopupMenuItem(value: 2, child: Text('About')),
-                ],
-                onSelected: (value) {
-                  if (value == 1) {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ChangeNotifierProvider<SchedulingProvider>(
-                          create: (_) => SchedulingProvider(),
-                          child: const SettingsPage());
-                    }));
-                  } else if (value == 2) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const AboutPage())));
-                  }
-                },
-              )),
-        ],
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 0, 4, 255),
-                  Color.fromARGB(255, 16, 242, 223)
-                ],
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomRight,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            children: [
+              Image.asset(
+                'assets/images/mobile-game.png',
+                fit: BoxFit.contain,
+                height: 35,
               ),
-              image: DecorationImage(
-                  image: AssetImage('assets/images/patern.jpg'),
-                  opacity: 0.5,
-                  fit: BoxFit.none,
-                  repeat: ImageRepeat.repeat)),
+              Container(
+                  margin: const EdgeInsets.only(top: 15.0, left: 5.0),
+                  child: Text(favoriteTitle,
+                      style: GoogleFonts.poppins(
+                          color: Colors.yellow, fontWeight: FontWeight.bold)))
+            ],
+          ),
+          centerTitle: true,
+          actions: const <Widget>[
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: PopupMenu()
+                ),
+          ],
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 0, 4, 255),
+                    Color.fromARGB(255, 16, 242, 223)
+                  ],
+                  begin: FractionalOffset.topLeft,
+                  end: FractionalOffset.bottomRight,
+                ),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/patern.jpg'),
+                    opacity: 0.5,
+                    fit: BoxFit.none,
+                    repeat: ImageRepeat.repeat)),
+          ),
         ),
       ),
       body: _buildList(),
@@ -163,6 +144,8 @@ class FavoriteList extends StatelessWidget {
             );
           },
         );
+      } else if (provider.state == ResultState.loading) { 
+        return const Center(child: CircularProgressIndicator());
       } else {
         return Center(
           child: Material(

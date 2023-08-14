@@ -20,14 +20,25 @@ class DatabaseProvider extends ChangeNotifier{
   List<Favorite> _favorite = [];
   List<Favorite> get favorite => _favorite;
 
-  void _getFavorites() async {
-    _favorite = (await databaseHelper.getFavorite()).cast<Favorite>();
-    if (_favorite.length > 0) {
-      _state = ResultState.hasData;
-    } else {
-      _state = ResultState.noData;
-      _message = 'Empty Data';
+  Future<dynamic> _getFavorites() async {
+    try {
+      _state = ResultState.loading;
+      notifyListeners();
+      _favorite = (await databaseHelper.getFavorite()).cast<Favorite>();
+      if (_favorite.length > 0) {
+        _state = ResultState.hasData;
+        notifyListeners();
+      } else {
+        _state = ResultState.noData;
+        _message = 'Empty Data';
+        notifyListeners();
+      }  
+    } catch (e) {
+      _state = ResultState.error;
+      notifyListeners();
+      return _message = 'Error --> $e';
     }
+    
     notifyListeners();
   }
 

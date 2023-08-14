@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../model/api/api_service.dart';
 import '../model/data/db/database_helper.dart';
 import '../provider/database_provider.dart';
@@ -101,15 +102,15 @@ class _DetailPageState extends State<DetailPage> {
                                                     provider.removeFavorite(
                                                         detail.gameDetail.id),
                                                 color: Colors.red,
-                                                icon: const Icon(
-                                                    Icons.favorite,
+                                                icon: const Icon(Icons.favorite,
                                                     size: 32))
                                             : IconButton(
                                                 onPressed: () =>
                                                     provider.addFavorite(
                                                         detail.gameDetail),
                                                 color: Colors.red,
-                                                icon: const Icon(Icons.favorite_border,
+                                                icon: const Icon(
+                                                    Icons.favorite_border,
                                                     size: 32));
                                       });
                                 },
@@ -268,6 +269,22 @@ class _DetailPageState extends State<DetailPage> {
                                 style: GoogleFonts.poppins(fontSize: 16.0),
                               ),
                             ),
+                            const SizedBox(height: 10),
+                            ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    final Uri _url = Uri.parse(detail
+                                        .gameDetail.stores[3].store.domain
+                                        .toString());
+                                    Future<void> _launchUrl() async {
+                                      if (!await launchUrl(_url)) {
+                                        throw Exception(
+                                            'Could not launch $_url');
+                                      }
+                                    }
+                                  });
+                                },
+                                child: Text('Go To Store'))
                           ],
                         ),
                       )

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gameku/ui/settings_page.dart';
+import 'package:gameku/widgets/popup_menu_item.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
-import '../provider/scheduling_provider.dart';
-import '../ui/about_page.dart';
 import '../ui/detail_page.dart';
 import '../utils/notifications_helper.dart';
 
@@ -47,7 +44,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 children: [
                   Text('Game',
                       style: GoogleFonts.poppins(
-                          color: Colors.grey, fontWeight: FontWeight.bold)),
+                          color: Color.fromARGB(255, 139, 139, 139), fontWeight: FontWeight.bold)),
                   Text('KU',
                       style: GoogleFonts.poppins(
                           color: Colors.yellow, fontWeight: FontWeight.bold))
@@ -56,43 +53,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ],
       ),
       centerTitle: true,
-      actions: <Widget>[
+      actions: const <Widget>[
         Padding(
             padding: const EdgeInsets.all(8.0),
-            child: PopupMenuButton<int>(
-              elevation: 2,
-              itemBuilder: (BuildContext context) => [
-                const PopupMenuItem(
-                  value: 1,
-                  child: Text('Setting')
-                ),
-                const PopupMenuItem(
-                  value: 2,
-                  child: Text('About')
-                ),
-              ],
-              onSelected: (value) {
-                if (value == 1) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                         return ChangeNotifierProvider<SchedulingProvider>(
-                          create: (_) => SchedulingProvider(),
-                          child: const SettingsPage()
-                          );
-                        })
-                  );
-                } else if (value == 2) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => const AboutPage())
-                    )
-                  );
-                }
-              },
-            )),
+            child: PopupMenu()
+          ),
       ],
       flexibleSpace: Container(
         decoration: const BoxDecoration(
