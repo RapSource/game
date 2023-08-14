@@ -76,11 +76,8 @@ class MyApp extends StatelessWidget {
               HomePage.routeName: (context) => const HomePage(),
               DetailPage.routeName: (context) => DetailPage(
                     id: int.parse(
-                      ModalRoute.of(context)?.settings.arguments.toString() ??
-                          '',
+                      ModalRoute.of(context)?.settings.arguments.toString() ?? '',
                     ),
-                    // gameDetail:
-                    //     ModalRoute.of(context)?.settings.arguments as GameDetail,
                   )
             });
       }),

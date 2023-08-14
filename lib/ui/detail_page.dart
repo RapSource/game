@@ -258,33 +258,62 @@ class _DetailPageState extends State<DetailPage> {
                                 trimLines: 10,
                                 textAlign: TextAlign.justify,
                                 trimMode: TrimMode.Line,
-                                trimCollapsedText: 'Read More..',
-                                trimExpandedText: 'Read Less..',
+                                trimCollapsedText: ' Read More..',
+                                trimExpandedText: ' Read Less..',
                                 lessStyle: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blueAccent),
+                                    color: Color.fromARGB(141, 7, 119, 139)),
                                 moreStyle: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blueAccent),
+                                    color: Color.fromARGB(141, 7, 119, 139)),
                                 style: GoogleFonts.poppins(fontSize: 16.0),
                               ),
                             ),
                             const SizedBox(height: 10),
-                            ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    final Uri _url = Uri.parse(detail
-                                        .gameDetail.stores[3].store.domain
-                                        .toString());
+                            Container(
+                              width: 300,
+                              decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.fromARGB(255, 0, 4, 255),
+                                      Color.fromARGB(255, 16, 242, 223)
+                                    ],
+                                    begin: FractionalOffset.topLeft,
+                                    end: FractionalOffset.bottomRight,
+                                  ),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          'assets/images/patern.jpg'),
+                                      opacity: 0.5,
+                                      fit: BoxFit.none,
+                                      repeat: ImageRepeat.repeat)),
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.transparent,
+                                    elevation: 0,
+                                  ),
+                                  onPressed: () async {
+                                    final Uri url = Uri.parse(
+                                        'https://${detail.gameDetail.storeUrl()}');
                                     Future<void> _launchUrl() async {
-                                      if (!await launchUrl(_url)) {
+                                      if (!await launchUrl(url)) {
                                         throw Exception(
-                                            'Could not launch $_url');
+                                            'Could not launch $url');
                                       }
                                     }
-                                  });
-                                },
-                                child: Text('Go To Store'))
+
+                                    _launchUrl();
+                                  },
+                                  child: const Text(
+                                    'Go To Store',
+                                    style: TextStyle(
+                                        color: Color.fromARGB(141, 7, 119, 139),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            )
                           ],
                         ),
                       )

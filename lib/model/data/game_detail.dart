@@ -250,8 +250,8 @@ class GameDetail {
 
   String storeUrl() {
     var urlStore = "";
-    developers.forEach((element) {
-      urlStore += element.domain!;
+    stores.forEach((element) {
+      urlStore = element.store.domain!;
     });
     return urlStore;
   }
