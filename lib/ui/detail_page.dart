@@ -7,8 +7,10 @@ import '../model/api/api_service.dart';
 import '../model/data/db/database_helper.dart';
 import '../provider/database_provider.dart';
 import '../provider/game_detail_provider.dart';
+import '../provider/game_developers_provider.dart';
+import '../provider/game_publishers_provider.dart';
 import '../provider/result_state.dart';
-import '../provider/screenshot_provide.dart';
+import '../provider/screenshot_provider.dart';
 import '../provider/video_thumbnail_provider.dart';
 import '../widgets/custom_appbar.dart';
 import 'package:readmore/readmore.dart';
@@ -49,12 +51,16 @@ class _DetailPageState extends State<DetailPage> {
             create: (_) => ScreenShotProvider(apiService: ApiService())),
         ChangeNotifierProvider<VideoThumbnailProvider>(
             create: (_) => VideoThumbnailProvider(apiService: ApiService())),
+        ChangeNotifierProvider<GameDevelopersProvider>(
+            create: (_) => GameDevelopersProvider(apiService: ApiService())),
+        ChangeNotifierProvider<GamePublishersProvider>(
+            create: (_) => GamePublishersProvider(apiService: ApiService())),
         ChangeNotifierProvider(
           create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         )
       ],
       child: Scaffold(
-          appBar: PreferredSize(
+          appBar: const PreferredSize(
               preferredSize: Size.fromHeight(60), child: CustomAppBar()),
           body: Consumer<GameDetailProvider>(
             builder: (context, detail, _) {
@@ -134,6 +140,70 @@ class _DetailPageState extends State<DetailPage> {
                             const SizedBox(height: 5),
                             Text(detail.gameDetail.getGenre().toString(),
                                 style: GoogleFonts.roboto(fontSize: 16.0)),
+                            const SizedBox(height: 5),
+                            Consumer<GameDevelopersProvider>(
+                              builder: (context, developer, child) {
+                                if (developer.state == ResultState.loading) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (developer.state ==
+                                    ResultState.hasData) {
+                                  // var developerGame = developer.result;
+                                  return Consumer<GamePublishersProvider>(
+                                      builder: (context, publisher, child) {
+                                    if (publisher.state ==
+                                        ResultState.loading) {
+                                      return const Center(
+                                          child: CircularProgressIndicator());
+                                    } else if (publisher.state ==
+                                        ResultState.hasData) {
+                                      // var publisherGame = publisher.result;
+                                      return Container(
+                                        color: Colors.lightGreen,
+                                        height: 100,
+                                        margin: const EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(5),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                Text('Developer'),
+                                                Text(developer.result?.results[1].name ?? '' 
+                                                )
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text('Publisher'),
+                                                Text(publisher.result?.results[1].name ?? '' 
+                                                )
+                                              ],
+                                            ),
+                                            // Column(
+                                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            //   children: [
+                                            //     Text('Released'),
+                                            //     Text(
+                                            //       DateFormat("dd/MM/yyyy").format(DateTime.parse(detail.gameDetail.released.toString()))
+                                            //     )
+                                            //   ],
+                                            // ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                    return const Text('');
+                                  });
+                                }
+                                return const Text('');
+                              },
+                            ),
                             const SizedBox(height: 5),
                             Container(
                                 height: 200,
@@ -258,15 +328,15 @@ class _DetailPageState extends State<DetailPage> {
                                 trimLines: 10,
                                 textAlign: TextAlign.justify,
                                 trimMode: TrimMode.Line,
-                                trimCollapsedText: ' Read More..',
-                                trimExpandedText: ' Read Less..',
+                                trimCollapsedText: ' Show more..',
+                                trimExpandedText: ' Show less..',
                                 lessStyle: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(141, 7, 119, 139)),
                                 moreStyle: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromARGB(141, 7, 119, 139)),
-                                style: GoogleFonts.poppins(fontSize: 16.0),
+                                style: GoogleFonts.roboto(fontSize: 16.0),
                               ),
                             ),
                             const SizedBox(height: 10),

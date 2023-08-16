@@ -44,7 +44,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 children: [
                   Text('Game',
                       style: GoogleFonts.poppins(
-                          color: Color.fromARGB(255, 139, 139, 139), fontWeight: FontWeight.bold)),
+                          color: const Color.fromARGB(255, 139, 139, 139), fontWeight: FontWeight.bold)),
                   Text('KU',
                       style: GoogleFonts.poppins(
                           color: Colors.yellow, fontWeight: FontWeight.bold))
@@ -55,7 +55,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       centerTitle: true,
       actions: const <Widget>[
         Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: PopupMenu()
           ),
       ],

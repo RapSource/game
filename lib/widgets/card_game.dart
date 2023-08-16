@@ -28,7 +28,7 @@ class CardGame extends StatelessWidget {
               height: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromARGB(255, 230, 228, 228),
+                color: const Color.fromARGB(255, 230, 228, 228),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

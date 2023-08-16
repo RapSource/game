@@ -255,6 +255,22 @@ class GameDetail {
     });
     return urlStore;
   }
+
+  String getDeveloper() {
+    var developer = "";
+    developers.forEach((element) {
+      developer = element.name;
+    });
+    return developer;
+  }
+
+  String getPublisher() {
+    var publisher = "";
+    developers.forEach((element) {
+      publisher = element.slug;
+    });
+    return publisher;
+  }
 }
 
 class AddedByStatus {

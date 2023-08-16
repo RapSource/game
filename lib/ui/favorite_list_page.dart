@@ -49,7 +49,7 @@ class FavoriteList extends StatelessWidget {
           centerTitle: true,
           actions: const <Widget>[
             Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: PopupMenu()
                 ),
           ],
@@ -105,10 +105,9 @@ class FavoriteList extends StatelessWidget {
                   height: 210,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromARGB(255, 230, 228, 228),
+                    color: const Color.fromARGB(255, 230, 228, 228),
                   ),
                   child: Stack(
-                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
