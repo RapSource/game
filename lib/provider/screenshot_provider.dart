@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:gameku/provider/result_state.dart';
 
-import '../model/api/api_service.dart';
-import '../model/data/screenshot.dart';
+import '../data/api/api_service.dart';
+import '../data/model/screenshot.dart';
 
 class ScreenShotProvider extends ChangeNotifier {
   final ApiService apiService;

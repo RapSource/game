@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
-import 'bottom_tabbar.dart';
+import '../widgets/bottom_tabbar.dart';
 
 class SplashPage extends StatefulWidget {
   static const routeName = '/splash_page';
@@ -54,7 +54,7 @@ class _SplashPageState extends State<SplashPage> {
                 const SizedBox(width: 3),
                 AnimatedTextKit(
                   animatedTexts: [
-                    RotateAnimatedText('KU',
+                    RotateAnimatedText('R',
                         textStyle: const TextStyle(
                             color: Colors.lightBlueAccent,
                             fontSize: 25,

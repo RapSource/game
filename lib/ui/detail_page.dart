@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../model/api/api_service.dart';
-import '../model/data/db/database_helper.dart';
+import '../data/api/api_service.dart';
+import '../data/db/database_helper.dart';
 import '../provider/database_provider.dart';
 import '../provider/game_detail_provider.dart';
-import '../provider/game_developers_provider.dart';
-import '../provider/game_publishers_provider.dart';
 import '../provider/result_state.dart';
 import '../provider/screenshot_provider.dart';
 import '../provider/video_thumbnail_provider.dart';
@@ -34,6 +33,10 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     Provider.of<GameDetailProvider>(context, listen: false)
         .fetchDetailGame(widget.id);
+    Provider.of<GameDetailProvider>(context, listen: false)
+        .getDeveloper(widget.id);
+    Provider.of<GameDetailProvider>(context, listen: false)
+        .getPublisher(widget.id);
     super.initState();
   }
 
@@ -51,10 +54,6 @@ class _DetailPageState extends State<DetailPage> {
             create: (_) => ScreenShotProvider(apiService: ApiService())),
         ChangeNotifierProvider<VideoThumbnailProvider>(
             create: (_) => VideoThumbnailProvider(apiService: ApiService())),
-        ChangeNotifierProvider<GameDevelopersProvider>(
-            create: (_) => GameDevelopersProvider(apiService: ApiService())),
-        ChangeNotifierProvider<GamePublishersProvider>(
-            create: (_) => GamePublishersProvider(apiService: ApiService())),
         ChangeNotifierProvider(
           create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()),
         )
@@ -140,71 +139,7 @@ class _DetailPageState extends State<DetailPage> {
                             const SizedBox(height: 5),
                             Text(detail.gameDetail.getGenre().toString(),
                                 style: GoogleFonts.roboto(fontSize: 16.0)),
-                            const SizedBox(height: 5),
-                            Consumer<GameDevelopersProvider>(
-                              builder: (context, developer, child) {
-                                if (developer.state == ResultState.loading) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (developer.state ==
-                                    ResultState.hasData) {
-                                  // var developerGame = developer.result;
-                                  return Consumer<GamePublishersProvider>(
-                                      builder: (context, publisher, child) {
-                                    if (publisher.state ==
-                                        ResultState.loading) {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    } else if (publisher.state ==
-                                        ResultState.hasData) {
-                                      // var publisherGame = publisher.result;
-                                      return Container(
-                                        color: Colors.lightGreen,
-                                        height: 100,
-                                        margin: const EdgeInsets.all(5),
-                                        padding: const EdgeInsets.all(5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Text('Developer'),
-                                                Text(developer.result?.results[1].name ?? '' 
-                                                )
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Text('Publisher'),
-                                                Text(publisher.result?.results[1].name ?? '' 
-                                                )
-                                              ],
-                                            ),
-                                            // Column(
-                                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                            //   children: [
-                                            //     Text('Released'),
-                                            //     Text(
-                                            //       DateFormat("dd/MM/yyyy").format(DateTime.parse(detail.gameDetail.released.toString()))
-                                            //     )
-                                            //   ],
-                                            // ),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                    return const Text('');
-                                  });
-                                }
-                                return const Text('');
-                              },
-                            ),
-                            const SizedBox(height: 5),
+                            const SizedBox(height: 10),
                             Container(
                                 height: 200,
                                 child: Consumer<VideoThumbnailProvider>(
@@ -255,7 +190,7 @@ class _DetailPageState extends State<DetailPage> {
                                                       child:
                                                           FloatingActionButton(
                                                         backgroundColor:
-                                                            Colors.black26,
+                                                            Colors.white30,
                                                         onPressed: () {
                                                           setState(() {
                                                             isPlaying =
@@ -339,7 +274,86 @@ class _DetailPageState extends State<DetailPage> {
                                 style: GoogleFonts.roboto(fontSize: 16.0),
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: const Divider(
+                                height: 20,
+                                color: Colors.black45,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              height: 60,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Developer',
+                                        style: GoogleFonts.lato(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: const Color.fromARGB(
+                                                141, 7, 119, 139)),
+                                      ),
+                                      Text(
+                                        detail.developer.name,
+                                        style: GoogleFonts.lato(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Publisher',
+                                          style: GoogleFonts.lato(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color.fromARGB(
+                                                  141, 7, 119, 139))),
+                                      Text(
+                                        detail.publisher.name,
+                                        style: GoogleFonts.lato(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Released',
+                                          style: GoogleFonts.lato(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              color: const Color.fromARGB(
+                                                  141, 7, 119, 139))),
+                                      Text(
+                                        DateFormat("dd MMMM, yyyy").format(
+                                            DateTime.parse(detail
+                                                .gameDetail.released
+                                                .toString())),
+                                        style: GoogleFonts.lato(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
                             Container(
                               width: 300,
                               decoration: const BoxDecoration(

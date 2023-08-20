@@ -240,11 +240,21 @@ class GameDetail {
         "description_raw": descriptionRaw,
       };
 
+  // String getGenre() {
+  //   var genre = "";
+  //   genres.forEach((element) {
+  //     genre += element.name;
+  //   });
+  //   return genre;
+  // }
+
   String getGenre() {
     var genre = "";
-    genres.forEach((element) {
-      genre += element.name;
-    });
+    for (int i = 0; i < genres.length; i++) {
+      if (i < 2) {
+        genre +=  '${genres[i].name} • ';
+      }
+    }
     return genre;
   }
 
@@ -254,22 +264,6 @@ class GameDetail {
       urlStore = element.store.domain!;
     });
     return urlStore;
-  }
-
-  String getDeveloper() {
-    var developer = "";
-    developers.forEach((element) {
-      developer = element.name;
-    });
-    return developer;
-  }
-
-  String getPublisher() {
-    var publisher = "";
-    developers.forEach((element) {
-      publisher = element.slug;
-    });
-    return publisher;
   }
 }
 

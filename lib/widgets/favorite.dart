@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/data/db/database_helper.dart';
-import '../model/data/game_detail.dart';
+import '../data/db/database_helper.dart';
+import '../data/model/game_detail.dart';
 import '../provider/database_provider.dart';
 
 class FavoritePage extends StatelessWidget {

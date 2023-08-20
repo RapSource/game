@@ -1,6 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../favorite.dart';
+import '../model/favorite.dart';
 
 class DatabaseHelper {
   static DatabaseHelper? _instance;
@@ -24,6 +24,8 @@ class DatabaseHelper {
             id INT PRIMARY KEY,
             name TEXT,
             background_image TEXT,
+            genre TEXT,
+            rating DOUBLE
           )
           '''
         );

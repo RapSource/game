@@ -1,6 +1,8 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gameku/ui/favorite_list_page.dart';
 import '../ui/home.dart';
+import '../ui/search_page.dart';
 
 class BottomTapBar extends StatefulWidget {
   static const routeName = '/tabbar';
@@ -16,23 +18,28 @@ class _BottomTapBarState extends State<BottomTapBar> {
 
   final List<Widget> _pages = [
     const HomePage(),
+    const SearchPage(),
     const FavoriteList(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    BottomNavigationBar navigationBar = BottomNavigationBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      currentIndex: _currentIndex,
+
+    CurvedNavigationBar navigationBar = CurvedNavigationBar(
+      height: 55,
       onTap: (int index) {
         setState(() {
           _currentIndex = index;
         });
       },
+      animationCurve: Curves.easeIn,
+      color: Colors.transparent,
+      buttonBackgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Game'),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorite'),
+        Icon(Icons.home, size: 27, color: Colors.blueGrey),
+        Icon(Icons.search, size: 27, color: Colors.blueGrey),
+        Icon(Icons.favorite, size: 27, color: Colors.blueGrey),
       ],
     );
 

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:gameku/model/api/api_service.dart';
+import 'package:gameku/data/api/api_service.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoThumbnailProvider extends ChangeNotifier {

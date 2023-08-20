@@ -7,18 +7,19 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gameku/common/navigation.dart';
 import 'package:gameku/provider/game_detail_provider.dart';
 import 'package:gameku/provider/game_result_provider.dart';
+import 'package:gameku/provider/game_search_provider.dart';
 import 'package:gameku/provider/preferences_provider.dart';
 import 'package:gameku/provider/scheduling_provider.dart';
 import 'package:gameku/ui/detail_page.dart';
 import 'package:gameku/ui/home.dart';
 import 'package:gameku/utils/background_service.dart';
 import 'package:gameku/utils/notifications_helper.dart';
-import 'package:gameku/widgets/splash_page.dart';
+import 'package:gameku/ui/splash_page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'model/api/api_service.dart';
-import 'model/data/preferences/preferences_helper.dart';
+import 'data/api/api_service.dart';
+import 'data/preferences/preferences_helper.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -50,6 +51,8 @@ class MyApp extends StatelessWidget {
             create: (_) => GameProvider(apiService: ApiService())),
         ChangeNotifierProvider<GameDetailProvider>(
             create: (_) => GameDetailProvider(apiService: ApiService())),
+        ChangeNotifierProvider<SearchGameProvider>(
+            create: (_) => SearchGameProvider(apiService: ApiService())),
         ChangeNotifierProvider(create: (_) => SchedulingProvider()),
         ChangeNotifierProvider(
             create: (_) => PreferencesProvider(

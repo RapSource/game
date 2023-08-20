@@ -1,7 +1,7 @@
 import 'dart:isolate';
 import 'dart:ui';
 
-import 'package:gameku/model/api/api_service.dart';
+import 'package:gameku/data/api/api_service.dart';
 
 import '../main.dart';
 import 'notifications_helper.dart';

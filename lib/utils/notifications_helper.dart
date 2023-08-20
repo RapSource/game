@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gameku/common/navigation.dart';
-import 'package:gameku/model/data/game_result.dart';
+import 'package:gameku/data/model/game_result.dart';
 import 'package:rxdart/rxdart.dart';
 
 final selectNotificationSubject = BehaviorSubject<String>();

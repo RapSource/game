@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../model/data/db/database_helper.dart';
+import '../data/db/database_helper.dart';
 import '../provider/database_provider.dart';
 import '../provider/result_state.dart';
 import '../widgets/platform_widget.dart';
@@ -43,15 +43,12 @@ class FavoriteList extends StatelessWidget {
                   margin: const EdgeInsets.only(top: 15.0, left: 5.0),
                   child: Text(favoriteTitle,
                       style: GoogleFonts.poppins(
-                          color: Colors.yellow, fontWeight: FontWeight.bold)))
+                          color: const Color.fromARGB(255, 139, 139, 139), fontWeight: FontWeight.bold)))
             ],
           ),
           centerTitle: true,
           actions: const <Widget>[
-            Padding(
-                padding: EdgeInsets.all(8.0),
-                child: PopupMenu()
-                ),
+            Padding(padding: EdgeInsets.all(8.0), child: PopupMenu()),
           ],
           flexibleSpace: Container(
             decoration: const BoxDecoration(
@@ -91,59 +88,82 @@ class FavoriteList extends StatelessWidget {
           itemCount: provider.favorite.length,
           itemBuilder: (context, index) {
             var favoriteGame = provider.favorite[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, DetailPage.routeName,
-                      arguments: favoriteGame.id);
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  padding: const EdgeInsets.all(5),
-                  width: MediaQuery.of(context).size.width,
-                  height: 210,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color.fromARGB(255, 230, 228, 228),
-                  ),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          favoriteGame.backgroundImage,
-                          height: 200,
-                          width: MediaQuery.of(context).size.width,
-                          fit: BoxFit.cover,
-                        ),
+            return InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, DetailPage.routeName,
+                    arguments: favoriteGame.id);
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 10, right: 10, top: 8),
+                padding: const EdgeInsets.all(5),
+                width: 200,
+                height: 110,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: const Color.fromARGB(255, 230, 228, 228),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        favoriteGame.backgroundImage,
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          margin: const EdgeInsets.all(8.0),
-                          padding: const EdgeInsets.all(3),
-                          decoration: BoxDecoration(
-                            color: Colors.white30,
-                            borderRadius: BorderRadius.circular(10)
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      margin: const EdgeInsets.only(top: 8, bottom: 8),
+                      height: 80,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.values[5],
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            favoriteGame.name,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                                color: Colors.black54,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold),
                           ),
-                          child: Text(
-                                favoriteGame.name,
+                          Text(
+                            favoriteGame.genre,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                                color: Color.fromARGB(190, 0, 0, 0),
+                                fontSize: 15.0),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                favoriteGame.rating.toString(),
                                 textAlign: TextAlign.left,
                                 style: const TextStyle(
-                                  color: Colors.black54,
-                                    fontSize: 18.0, fontWeight: FontWeight.bold),
+                                    color: Color.fromARGB(190, 0, 0, 0),
+                                    fontSize: 15.0)
                               ),
-                        ),
+                              const SizedBox(height: 5),
+                              const Icon(
+                                  Icons.star,
+                                  color: Colors.orangeAccent,
+                                  size: 18,
+                                )
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );
           },
         );
-      } else if (provider.state == ResultState.loading) { 
+      } else if (provider.state == ResultState.loading) {
         return const Center(child: CircularProgressIndicator());
       } else {
         return Center(

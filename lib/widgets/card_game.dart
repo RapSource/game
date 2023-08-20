@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../model/data/game_result.dart';
+import '../data/model/game_result.dart';
 import '../ui/detail_page.dart';
 
 class CardGame extends StatelessWidget {

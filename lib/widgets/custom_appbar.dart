@@ -45,9 +45,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   Text('Game',
                       style: GoogleFonts.poppins(
                           color: const Color.fromARGB(255, 139, 139, 139), fontWeight: FontWeight.bold)),
-                  Text('KU',
+                  Text('R',
                       style: GoogleFonts.poppins(
-                          color: Colors.yellow, fontWeight: FontWeight.bold))
+                          color: Colors.yellow, fontSize: 25, fontWeight: FontWeight.bold))
                 ],
               ))
         ],

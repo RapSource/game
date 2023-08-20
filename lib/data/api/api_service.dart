@@ -1,12 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../data/game_detail.dart';
-import '../data/game_developers.dart';
-import '../data/game_publishers.dart';
-import '../data/game_result.dart';
-import '../data/screenshot.dart';
-import '../data/video_thumbnail.dart';
+import '../model/game_detail.dart';
+import '../model/developers_publishers.dart';
+import '../model/game_result.dart';
+import '../model/screenshot.dart';
+import '../model/video_thumbnail.dart';
 
 class ApiService {
 
@@ -42,19 +41,27 @@ class ApiService {
     return ShortScreensShot.fromJson(jsonObject);
   }
 
-  Future<GameDeveloper> getGameDeveloper(int id) async {
+  Future<DeveloperPublisher> getDeveloper(int id) async {
     var apiResult = await http.get(Uri.parse(
         'https://api.rawg.io/api/developers/$id?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiResult.body);
 
-    return GameDeveloper.fromJson(jsonObject);
+    return DeveloperPublisher.fromJson(jsonObject);
   }
 
-  Future<GamePublisher> getGamePublisher(int id) async {
+  Future<DeveloperPublisher> getPublisher(int id) async {
     var apiResult = await http.get(Uri.parse(
         'https://api.rawg.io/api/publishers/$id?key=f42fedf990ec402cbce31651c741ba35'));
     var jsonObject = json.decode(apiResult.body);
 
-    return GamePublisher.fromJson(jsonObject);
+    return DeveloperPublisher.fromJson(jsonObject);
+  }
+
+  Future<GameResult> getSearchGame(String query) async {
+    var apiResult = await http.get(Uri.parse(
+        'https://api.rawg.io/api/games?search=$query&key=f42fedf990ec402cbce31651c741ba35'));
+    var jsonObject = json.decode(apiResult.body);
+
+    return GameResult.fromJson(jsonObject);
   }
 }

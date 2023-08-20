@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:gameku/model/api/api_service.dart';
-import 'package:gameku/model/data/game_result.dart';
+import 'package:gameku/data/api/api_service.dart';
+import 'package:gameku/data/model/game_result.dart';
 import 'package:gameku/provider/result_state.dart';
 
 class GameProvider extends ChangeNotifier {
