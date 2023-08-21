@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/game_search_provider.dart';
@@ -13,10 +14,12 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  // static const String searchPage= 'Search';
   String query = '';
 
   void initState() {
-    Provider.of<SearchGameProvider>(context, listen: false).fetchSearchGame(query);
+    Provider.of<SearchGameProvider>(context, listen: false)
+        .fetchSearchGame(query);
     super.initState();
   }
 
@@ -29,63 +32,85 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<SearchGameProvider>(builder: (context, search, _) {
-        if (search.state == ResultState.loading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (search.state == ResultState.hasData) {
-          // var gameSearch = search.resultSearch;
-          return SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 47, vertical: 10),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Image.asset(
+                'assets/images/mobile-game.png',
+                fit: BoxFit.contain,
+                height: 35,
+              ),
+              Container(
+                  width: 320,
+                  height: 40,
+                  margin: const EdgeInsets.all(7),
                   child: TextField(
-                    onChanged: (String query) {
-                      search.fetchSearchGame(query);
-                    },
                     autofocus: true,
                     decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(left: 27),
+                      contentPadding: EdgeInsets.only(left: 27),
                       filled: true,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(11),
                       ),
-                      prefixIcon: IconButton(
-                        icon: const Icon(Icons.search),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.search),
                         onPressed: () {},
                       ),
                       hintText: 'Search',
                     ),
-                  ),
+                  ))
+            ],
+          ),
+          centerTitle: true,
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 0, 4, 255),
+                    Color.fromARGB(255, 16, 242, 223)
+                  ],
+                  begin: FractionalOffset.topLeft,
+                  end: FractionalOffset.bottomRight,
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Expanded(child: CardGame(gameResult: search.resultSearch))
-              ],
-            ),
-          );
-        } else if (search.state == ResultState.noData) {
-          return Center(
-            child: Material(
-              child: Text(search.message),
-            ),
-          );
-        } else if (search.state == ResultState.error) {
-          return Center(
-            child: Material(
-              child: Text(search.message),
-            ),
-          );
-        } else {
-          return const Center(
-            child: Material(
-              child: Text(''),
-            ),
-          );
-        }
-      }),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/patern.jpg'),
+                    opacity: 0.5,
+                    fit: BoxFit.none,
+                    repeat: ImageRepeat.repeat)),
+          ),
+        ),
+      ),
     );
+  }
+
+  _buildList(SearchGameProvider search) {
+    if (search.state == ResultState.loading) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (search.state == ResultState.hasData) {
+      var searchGame = search.resultSearch;
+      return CardGame(gameResult: searchGame);
+    } else if (search.state == ResultState.noData) {
+      return Center(
+        child: Material(
+          child: Text(search.message),
+        ),
+      );
+    } else if (search.state == ResultState.error) {
+      return Center(
+        child: Material(
+          child: Text(search.message),
+        ),
+      );
+    } else {
+      return const Center(
+        child: Material(
+          child: Text(''),
+        ),
+      );
+    }
   }
 }
