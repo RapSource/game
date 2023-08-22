@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/game_search_provider.dart';
@@ -31,59 +30,66 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image.asset(
-                'assets/images/mobile-game.png',
-                fit: BoxFit.contain,
-                height: 35,
-              ),
-              Container(
-                  width: 320,
-                  height: 40,
-                  margin: const EdgeInsets.all(7),
-                  child: TextField(
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(left: 27),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(11),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () {},
-                      ),
-                      hintText: 'Search',
+    return Consumer<SearchGameProvider>(
+      builder: (context, search, _) {
+        return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(60),
+              child: AppBar(
+                automaticallyImplyLeading: false,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Image.asset(
+                      'assets/images/mobile-game.png',
+                      fit: BoxFit.contain,
+                      height: 35,
                     ),
-                  ))
-            ],
-          ),
-          centerTitle: true,
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 0, 4, 255),
-                    Color.fromARGB(255, 16, 242, 223)
+                    Container(
+                        width: 320,
+                        height: 40,
+                        margin: const EdgeInsets.all(7),
+                        child: TextField(
+                          onChanged: (query) {
+                            search.fetchSearchGame(query);
+                          },
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 27),
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(11),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.search),
+                              onPressed: () {},
+                            ),
+                            hintText: 'Search',
+                          ),
+                        ))
                   ],
-                  begin: FractionalOffset.topLeft,
-                  end: FractionalOffset.bottomRight,
                 ),
-                image: DecorationImage(
-                    image: AssetImage('assets/images/patern.jpg'),
-                    opacity: 0.5,
-                    fit: BoxFit.none,
-                    repeat: ImageRepeat.repeat)),
-          ),
-        ),
-      ),
+                centerTitle: true,
+                flexibleSpace: Container(
+                  decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(255, 0, 4, 255),
+                          Color.fromARGB(255, 16, 242, 223)
+                        ],
+                        begin: FractionalOffset.topLeft,
+                        end: FractionalOffset.bottomRight,
+                      ),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/patern.jpg'),
+                          opacity: 0.5,
+                          fit: BoxFit.none,
+                          repeat: ImageRepeat.repeat)),
+                ),
+              ),
+            ),
+            body: _buildList(search));
+      },
     );
   }
 
@@ -100,9 +106,12 @@ class _SearchPageState extends State<SearchPage> {
         ),
       );
     } else if (search.state == ResultState.error) {
-      return Center(
+      return const Center(
         child: Material(
-          child: Text(search.message),
+          child: Text(
+            'Games not found',
+            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w300),
+          ),
         ),
       );
     } else {

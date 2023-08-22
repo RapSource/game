@@ -73,8 +73,8 @@ class Genre {
   int id;
   String name;
   String slug;
-  int gamesCount;
-  String imageBackground;
+  int? gamesCount;
+  String? imageBackground;
 
   Genre({
     required this.id,

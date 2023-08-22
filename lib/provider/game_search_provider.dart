@@ -9,13 +9,14 @@ class SearchGameProvider extends ChangeNotifier{
 
   SearchGameProvider({required this.apiService});
 
-  late GameResult _searchGame;
-  late ResultState _state;
-  String _message = '';
+  late GameResult _resultSearch;
+  GameResult get resultSearch => _resultSearch;
 
-  String get message => _message;
-  GameResult get resultSearch => _searchGame;
+  ResultState _state = ResultState.noData;
   ResultState get state => _state;
+  
+  String _message = '';
+  String get message => _message;
 
   Future<dynamic> fetchSearchGame(String query) async {
     try {
@@ -24,17 +25,17 @@ class SearchGameProvider extends ChangeNotifier{
       final search = await apiService.getSearchGame(query);
       if (search.results.isEmpty) {
         _state = ResultState.noData;
+        _message = 'Empty Data';
         notifyListeners();
-        return _message = 'Empty Data';
       } else {
         _state = ResultState.hasData;
+        _resultSearch = search;
         notifyListeners();
-        return _searchGame = search;
       }
     } catch (e) {
       _state = ResultState.error;
+      _message = 'Error --> $e';
       notifyListeners();
-      return _message = 'Error --> $e';
     }
   }
 }
